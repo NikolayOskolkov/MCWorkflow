@@ -7544,7 +7544,41 @@ In this vignette, we will demonstrate how to prepare and run the workflow detect
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Prepare-input-files-">Prepare input files <a class="anchor" id="Prepare-input-files"></a><a class="anchor-link" href="#Prepare-input-files-">¶</a></h3><p>For demonstration purposes we are going to use the reference genome of <a href="https://en.wikipedia.org/wiki/Bathycoccus_prasinos"><em>Bathycoccus prasinos</em></a> which is a green algae (picoplankton) eukaryotic organism related to plants. The reference genome <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002220235.1/">GCF_002220235.1</a> of this algae is small (15 Mb) and therefore computationally easy to handle. The worflow together with the test-files is available at the following github address: <a href="https://github.com/NikolayOskolkov/MicrLikeInserts_Workflow">https://github.com/NikolayOskolkov/MicrLikeInserts_Workflow</a>.</p>
+<h3 id="Prepare-input-files-">Prepare input files <a class="anchor" id="Prepare-input-files"></a><a class="anchor-link" href="#Prepare-input-files-">¶</a></h3><p>For demonstration purposes we are going to use the reference genome of <a href="https://en.wikipedia.org/wiki/Bathycoccus_prasinos"><em>Bathycoccus prasinos</em></a> which is a green algae (picoplankton) eukaryotic organism related to plants. The reference genome <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002220235.1/">GCF_002220235.1</a> of this algae is small (15 Mb) and therefore computationally easy to handle. The worflow together with the test-files is available at the following github address: <a href="https://github.com/NikolayOskolkov/MCWorkflow">https://github.com/NikolayOskolkov/MCWorkflow</a>. Let us first clone th github repository and inspect its content:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0e23766f-8ece-45c9-b5f0-4fe03f562576">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-bash"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/home/nikolay
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NikolayOskolkov/MCWorkflow
+<span class="nb">cd</span><span class="w"> </span>MCWorkflow
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Cloning into 'MCWorkflow'...
+remote: Enumerating objects: 19, done.
+remote: Counting objects: 100% (19/19), done.
+remote: Compressing objects: 100% (12/12), done.
+remote: Total 19 (delta 3), reused 16 (delta 3), pack-reused 0 (from 0)
+Unpacking objects: 100% (19/19), done.
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -7553,7 +7587,7 @@ In this vignette, we will demonstrate how to prepare and run the workflow detect
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span>ls<span class="w"> </span>-l
@@ -7570,14 +7604,15 @@ In this vignette, we will demonstrate how to prepare and run the workflow detect
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>total 7584
-drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:02 <span class="ansi-blue-intense-fg ansi-bold">data</span>
--rwxrwxr-x 1 nikolay nikolay    6265 feb 28 16:24 <span class="ansi-green-intense-fg ansi-bold">extract_coords_micr_contam.R</span>
--rw-r--r-- 1 nikolay nikolay 3766396 feb 25 14:15 GTDB_fna2name.txt
--rw-rw-r-- 1 nikolay nikolay 3675565 mar  7 10:57 <span class="ansi-red-intense-fg ansi-bold">GTDB_sliced_seqs_sliding_window.fna.gz</span>
-drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:19 <span class="ansi-blue-intense-fg ansi-bold">images</span>
--rwxrwxr-x 1 nikolay nikolay    5000 mar  7 12:56 <span class="ansi-green-intense-fg ansi-bold">micr_cont_detect.sh</span>
--rw-rw-r-- 1 nikolay nikolay  282968 mar  7 16:40 vignette.html
--rw-rw-r-- 1 nikolay nikolay    6959 mar  7 17:11 vignette.ipynb
+drwxrwxr-x 2 nikolay nikolay    4096 mar  7 20:20 <span class="ansi-blue-intense-fg ansi-bold">data</span>
+-rwxrwxr-x 1 nikolay nikolay    6265 mar  7 20:20 <span class="ansi-green-intense-fg ansi-bold">extract_coords_micr_contam.R</span>
+-rw-rw-r-- 1 nikolay nikolay 3766396 mar  7 20:20 GTDB_fna2name.txt
+-rw-rw-r-- 1 nikolay nikolay 3675565 mar  7 20:20 <span class="ansi-red-intense-fg ansi-bold">GTDB_sliced_seqs_sliding_window.fna.gz</span>
+drwxrwxr-x 2 nikolay nikolay    4096 mar  7 20:20 <span class="ansi-blue-intense-fg ansi-bold">images</span>
+-rwxrwxr-x 1 nikolay nikolay    5000 mar  7 20:20 <span class="ansi-green-intense-fg ansi-bold">micr_cont_detect.sh</span>
+-rw-rw-r-- 1 nikolay nikolay      26 mar  7 20:20 README.md
+-rw-rw-r-- 1 nikolay nikolay  280904 mar  7 20:20 vignette.html
+-rw-rw-r-- 1 nikolay nikolay    6959 mar  7 20:20 vignette.ipynb
 </pre>
 </div>
 </div>
@@ -7599,7 +7634,7 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:19 <span class="ansi-blue-intense
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span><span class="nb">pwd</span>
@@ -7615,7 +7650,7 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:19 <span class="ansi-blue-intense
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>/home/nikolay/vignette
+<pre>/home/nikolay/MCWorkflow
 </pre>
 </div>
 </div>
@@ -7637,10 +7672,10 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:19 <span class="ansi-blue-intense
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-bash"><pre><span></span>./micr_cont_detect.sh<span class="w"> </span>GCF_002220235.fna.gz<span class="w"> </span>/home/nikolay/vignette/data<span class="w"> </span>GTDB<span class="w"> </span><span class="m">4</span><span class="w"> </span>GTDB_sliced_seqs_sliding_window.fna.gz<span class="w"> </span>GTDB_fna2name.txt
+<div class="highlight hl-bash"><pre><span></span>./micr_cont_detect.sh<span class="w"> </span>GCF_002220235.fna.gz<span class="w"> </span>/home/nikolay/MCWorkflow/data<span class="w"> </span>GTDB<span class="w"> </span><span class="m">4</span><span class="w"> </span>GTDB_sliced_seqs_sliding_window.fna.gz<span class="w"> </span>GTDB_fna2name.txt
 </pre></div>
 </div>
 </div>
