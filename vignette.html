@@ -7544,7 +7544,7 @@ In this vignette, we will demonstrate how to prepare and run the workflow detect
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Prepare-input-files-">Prepare input files <a class="anchor" id="Prepare-input-files"></a><a class="anchor-link" href="#Prepare-input-files-">¶</a></h3><p>Here we provide an example detetion of microbial-like sequeneces in eukarytotic reference genomes.</p>
+<h3 id="Prepare-input-files-">Prepare input files <a class="anchor" id="Prepare-input-files"></a><a class="anchor-link" href="#Prepare-input-files-">¶</a></h3><p>For demonstration purposes we are going to use the reference genome of <a href="https://en.wikipedia.org/wiki/Bathycoccus_prasinos"><em>Bathycoccus prasinos</em></a> which is a green algae (picoplankton) eukaryotic organism related to plants. The reference genome <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_002220235.1/">GCF_002220235.1</a> of this algae is small (15 Mb) and therefore computationally easy to handle. The worflow together with the test-files is available at the following github address: <a href="https://github.com/NikolayOskolkov/MicrLikeInserts_Workflow">https://github.com/NikolayOskolkov/MicrLikeInserts_Workflow</a>.</p>
 </div>
 </div>
 </div>
@@ -7553,7 +7553,7 @@ In this vignette, we will demonstrate how to prepare and run the workflow detect
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span>ls<span class="w"> </span>-l
@@ -7569,15 +7569,15 @@ In this vignette, we will demonstrate how to prepare and run the workflow detect
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>total 7580
+<pre>total 7584
 drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:02 <span class="ansi-blue-intense-fg ansi-bold">data</span>
 -rwxrwxr-x 1 nikolay nikolay    6265 feb 28 16:24 <span class="ansi-green-intense-fg ansi-bold">extract_coords_micr_contam.R</span>
 -rw-r--r-- 1 nikolay nikolay 3766396 feb 25 14:15 GTDB_fna2name.txt
 -rw-rw-r-- 1 nikolay nikolay 3675565 mar  7 10:57 <span class="ansi-red-intense-fg ansi-bold">GTDB_sliced_seqs_sliding_window.fna.gz</span>
 drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:19 <span class="ansi-blue-intense-fg ansi-bold">images</span>
 -rwxrwxr-x 1 nikolay nikolay    5000 mar  7 12:56 <span class="ansi-green-intense-fg ansi-bold">micr_cont_detect.sh</span>
--rw-rw-r-- 1 nikolay nikolay  278928 mar  7 13:20 vignette.html
--rw-rw-r-- 1 nikolay nikolay    8144 mar  7 16:19 vignette.ipynb
+-rw-rw-r-- 1 nikolay nikolay  282968 mar  7 16:40 vignette.html
+-rw-rw-r-- 1 nikolay nikolay    6959 mar  7 17:11 vignette.ipynb
 </pre>
 </div>
 </div>
@@ -7599,7 +7599,7 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:19 <span class="ansi-blue-intense
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span><span class="nb">pwd</span>
@@ -7621,6 +7621,17 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:19 <span class="ansi-blue-intense
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=079cc822-730e-49da-bffc-d61e5a3b47c2">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Run-workflow-">Run workflow <a class="anchor" id="Run-workflow"></a><a class="anchor-link" href="#Run-workflow-">¶</a></h3><p>Now we can start the workflow by the following command line:</p>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5890b901-d1fe-4439-844e-2122e0ac2de0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -7629,7 +7640,7 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 16:19 <span class="ansi-blue-intense
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-bash"><pre><span></span>./micr_cont_detect.sh<span class="w"> </span>GCF_002220235.fna.gz<span class="w"> </span>/home/nikolay/vignette/dt<span class="w"> </span>GTDB<span class="w"> </span><span class="m">4</span><span class="w"> </span>GTDB_sliced_seqs_sliding_window.fna.gz<span class="w"> </span>GTDB_fna2name.txt
+<div class="highlight hl-bash"><pre><span></span>./micr_cont_detect.sh<span class="w"> </span>GCF_002220235.fna.gz<span class="w"> </span>/home/nikolay/vignette/data<span class="w"> </span>GTDB<span class="w"> </span><span class="m">4</span><span class="w"> </span>GTDB_sliced_seqs_sliding_window.fna.gz<span class="w"> </span>GTDB_fna2name.txt
 </pre></div>
 </div>
 </div>
@@ -7680,49 +7691,6 @@ AGGREGATING RESULTS FOR GCF_002220235.fna.gz REFERENCE GENOME AND CLEANING
 COMPUTING LIST OF MOST ABUNDANT MICROBES CONTMAMINATING GCF_002220235.fna.gz REFERENCE GENOME
 
 ANALYSIS FOR GCF_002220235.fna.gz REFERENCE GENOME FINISHED SUCCESSFULLY
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=89eb289c-d222-4ca4-b473-674cce06f468">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-bash"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ipython
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Requirement already satisfied: ipython in /home/nikolay/miniconda3/lib/python3.9/site-packages (8.17.2)
-Requirement already satisfied: decorator in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (5.1.1)
-Requirement already satisfied: jedi&gt;=0.16 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (0.19.2)
-Requirement already satisfied: matplotlib-inline in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (0.1.7)
-Requirement already satisfied: prompt-toolkit!=3.0.37,&lt;3.1.0,&gt;=3.0.30 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (3.0.48)
-Requirement already satisfied: pygments&gt;=2.4.0 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (2.18.0)
-Requirement already satisfied: stack-data in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (0.6.3)
-Requirement already satisfied: traitlets&gt;=5 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (5.14.3)
-Requirement already satisfied: typing-extensions in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (4.12.2)
-Requirement already satisfied: exceptiongroup in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (1.2.2)
-Requirement already satisfied: pexpect&gt;4.3 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from ipython) (4.9.0)
-Requirement already satisfied: parso&lt;0.9.0,&gt;=0.8.4 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from jedi&gt;=0.16-&gt;ipython) (0.8.4)
-Requirement already satisfied: ptyprocess&gt;=0.5 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from pexpect&gt;4.3-&gt;ipython) (0.7.0)
-Requirement already satisfied: wcwidth in /home/nikolay/miniconda3/lib/python3.9/site-packages (from prompt-toolkit!=3.0.37,&lt;3.1.0,&gt;=3.0.30-&gt;ipython) (0.2.13)
-Requirement already satisfied: executing&gt;=1.2.0 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from stack-data-&gt;ipython) (2.1.0)
-Requirement already satisfied: asttokens&gt;=2.1.0 in /home/nikolay/miniconda3/lib/python3.9/site-packages (from stack-data-&gt;ipython) (3.0.0)
-Requirement already satisfied: pure_eval in /home/nikolay/miniconda3/lib/python3.9/site-packages (from stack-data-&gt;ipython) (0.2.3)
 </pre>
 </div>
 </div>
