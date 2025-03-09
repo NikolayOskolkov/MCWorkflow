@@ -7517,11 +7517,12 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Vignette-demonstrating-microbial-like-sequence-discovery-workflow">Vignette demonstrating microbial-like sequence discovery workflow<a class="anchor-link" href="#Vignette-demonstrating-microbial-like-sequence-discovery-workflow">¶</a></h1><h4 id="Nikolay-Oskolkov,-SciLifeLab,-NBIS-Long-Term-Support,-nikolay.oskolkov@scilifelab.se">Nikolay Oskolkov, SciLifeLab, NBIS Long Term Support, nikolay.oskolkov@scilifelab.se<a class="anchor-link" href="#Nikolay-Oskolkov,-SciLifeLab,-NBIS-Long-Term-Support,-nikolay.oskolkov@scilifelab.se">¶</a></h4><h3><center>Abstract</center></h3>
-In this vignette, we will demonstrate how to prepare and run the workflow detecting microbial-like sequeneces in eukaryotic reference genomes. Thw workflow accepts a eukaryotic reference in FASTA-format and outputs coordinates of microbial-like regions together with microbial species annotation.
+In this vignette, we will demonstrate how to prepare and run the workflow detecting microbial-like sequeneces in eukaryotic reference genomes. The workflow accepts a eukaryotic reference in FASTA-format and outputs coordinates of microbial-like regions together with microbial species annotation.
 
 <h3 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h3><ul>
 <li><a href="#Prepare-input-files">Prepare input files</a></li>
-<li><a href="#Run-workflow">Run workflow</a></li>
+<li><a href="#Running-workflow">Running workflow</a></li>
+<li><a href="#Interpreting-results">Interpreting results</a></li>
 </ul>
 </div>
 </div>
@@ -7572,11 +7573,11 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Nikol
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Cloning into 'MCWorkflow'...
-remote: Enumerating objects: 19, done.
-remote: Counting objects: 100% (19/19), done.
-remote: Compressing objects: 100% (12/12), done.
-remote: Total 19 (delta 3), reused 16 (delta 3), pack-reused 0 (from 0)
-Unpacking objects: 100% (19/19), done.
+remote: Enumerating objects: 23, done.
+remote: Counting objects: 100% (23/23), done.
+remote: Compressing objects: 100% (16/16), done.
+remote: Total 23 (delta 6), reused 14 (delta 3), pack-reused 0 (from 0)
+Unpacking objects: 100% (23/23), done.
 </pre>
 </div>
 </div>
@@ -7604,15 +7605,15 @@ Unpacking objects: 100% (19/19), done.
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>total 7584
-drwxrwxr-x 2 nikolay nikolay    4096 mar  7 20:20 <span class="ansi-blue-intense-fg ansi-bold">data</span>
--rwxrwxr-x 1 nikolay nikolay    6265 mar  7 20:20 <span class="ansi-green-intense-fg ansi-bold">extract_coords_micr_contam.R</span>
--rw-rw-r-- 1 nikolay nikolay 3766396 mar  7 20:20 GTDB_fna2name.txt
--rw-rw-r-- 1 nikolay nikolay 3675565 mar  7 20:20 <span class="ansi-red-intense-fg ansi-bold">GTDB_sliced_seqs_sliding_window.fna.gz</span>
-drwxrwxr-x 2 nikolay nikolay    4096 mar  7 20:20 <span class="ansi-blue-intense-fg ansi-bold">images</span>
--rwxrwxr-x 1 nikolay nikolay    5000 mar  7 20:20 <span class="ansi-green-intense-fg ansi-bold">micr_cont_detect.sh</span>
--rw-rw-r-- 1 nikolay nikolay      26 mar  7 20:20 README.md
--rw-rw-r-- 1 nikolay nikolay  280904 mar  7 20:20 vignette.html
--rw-rw-r-- 1 nikolay nikolay    6959 mar  7 20:20 vignette.ipynb
+drwxrwxr-x 2 nikolay nikolay    4096 mar  8 11:00 <span class="ansi-blue-intense-fg ansi-bold">data</span>
+-rwxrwxr-x 1 nikolay nikolay    6265 mar  8 11:00 <span class="ansi-green-intense-fg ansi-bold">extract_coords_micr_contam.R</span>
+-rw-rw-r-- 1 nikolay nikolay 3766396 mar  8 11:00 GTDB_fna2name.txt
+-rw-rw-r-- 1 nikolay nikolay 3675565 mar  8 11:00 <span class="ansi-red-intense-fg ansi-bold">GTDB_sliced_seqs_sliding_window.fna.gz</span>
+drwxrwxr-x 2 nikolay nikolay    4096 mar  8 11:00 <span class="ansi-blue-intense-fg ansi-bold">images</span>
+-rwxrwxr-x 1 nikolay nikolay    5000 mar  8 11:00 <span class="ansi-green-intense-fg ansi-bold">micr_cont_detect.sh</span>
+-rw-rw-r-- 1 nikolay nikolay      26 mar  8 11:00 README.md
+-rw-rw-r-- 1 nikolay nikolay  282437 mar  8 11:00 vignette.html
+-rw-rw-r-- 1 nikolay nikolay    7822 mar  8 11:00 vignette.ipynb
 </pre>
 </div>
 </div>
@@ -7625,7 +7626,54 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 20:20 <span class="ansi-blue-intense
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Let us now download an eukaryotic reference genome and place it in a data-folder</p>
+<p>The workflow consists of four main files:</p>
+<ul>
+<li><strong>micr_cont_detect.sh</strong> - main shell-script that builds eukaryotic reference genome index, runs alignments and does pre- and post-processing</li>
+<li><strong>extract_coords_micr_contam.R</strong> - helping R script that extracts coordinates of covered regions and annotates them with microbial species</li>
+<li><strong>GTDB_sliced_seqs_sliding_window.fna.gz</strong> - prepared 60bp long GTDB microbial pseudo-reads to be aligned to eukaryotic references</li>
+<li><strong>GTDB_fna2name.txt</strong> - annotation of pseudo-reads with scientific microbial names according to GTDB taxonomy</li>
+</ul>
+<p>Currently it is important that all the four files are located in the same directory. We recommend to perform all the analysis in this cloned github repository in order to avoid complications with changing the paths and hacking the codes. Please note that the <strong>GTDB_sliced_seqs_sliding_window.fna.gz</strong> file is a small (3.7 MB) demonstration subset of the complete dataset (234 GB) available at the SciLifeLab Figshare <a href="https://doi.org/10.17044/scilifelab.28491956">https://doi.org/10.17044/scilifelab.28491956</a> which should be used for real-world applications, i.e. for your research you will have to replace the toy-dataset from the github repository by the large one (with identical file name) from the SciLifeLab Figshare. The toy-dataset includes pseudo-reads from only one bacterium named as <em>UBA796 sp002707085</em> (with corresponding reference 5oFfr3yp0G.fna) belonging to the phylum Myxococcota in the GTDB databse.</p>
+<p>Next, we recommend to place the eukaryotic reference genomes tobe profiled for microbial-like sequences into the folder "data" within the cloned repository as shown above. Right now, the "data"-folder is already present in the cloned repository and the <em>Bathycoccus prasinos</em> reference genome GCF_002220235.fna.gz has been already placed within this folder. Let us double-check that the eukaryotic reference genome is indeed inside the "data"-folder:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0ace2e33-c14b-47da-b956-dcb1205c583c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-bash"><pre><span></span><span class="nb">cd</span><span class="w"> </span>data<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>total 4828
+-rwxrwxr-x 1 nikolay nikolay 4941250 mar  8 11:00 <span class="ansi-green-intense-fg ansi-bold">GCF_002220235.fna.gz</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=656bda2d-48e4-445c-a830-391a47c01fd1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Finally, we make sure that we are going to start the workflow, i.e. call the <strong>micr_cont_detect.sh</strong> script from the cloned github repository:</p>
 </div>
 </div>
 </div>
@@ -7634,7 +7682,7 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 20:20 <span class="ansi-blue-intense
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span><span class="nb">pwd</span>
@@ -7657,13 +7705,45 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 20:20 <span class="ansi-blue-intense
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=37c2fefd-730b-41b5-b424-1e05c874d2de">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now everything is ready for launching the workflow.</p>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=079cc822-730e-49da-bffc-d61e5a3b47c2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Run-workflow-">Run workflow <a class="anchor" id="Run-workflow"></a><a class="anchor-link" href="#Run-workflow-">¶</a></h3><p>Now we can start the workflow by the following command line:</p>
+<h3 id="Running-workflow-">Running workflow <a class="anchor" id="Running-workflow"></a><a class="anchor-link" href="#Running-workflow-">¶</a></h3><p>Before you start the workflow, please make sure that <strong>R, awk, Bowtie2 and samtools are installed</strong> and available in your path. If you run the workflow on an HPC cluster, please make sure that you have loaded the corresponding modules. The workflow has the following format:</p>
+<p><strong>./micr_cont_detect.sh REF_GENOME INPUT_DIR REFSEQ_OR_GTDB THREADS MICR_READS GTDB_ANNOT</strong></p>
+<p>where:</p>
+<ul>
+<li>REF_GENOME     - gzipped eukaryotic reference genome in FASTA-format (no path is needed, just the name of the file)</li>
+<li>INPUT_DIR      - directory containing the eukaryotic reference genome (here you need to provide the absolute path)</li>
+<li>REFSEQ_OR_GTDB - whether RefSeq OR GTDB sliced microbial pseudo-reads are used, can only be "RefSeq" or "GTDB"</li>
+<li>THERADS        - number of threads available</li>
+<li>MICR_READS     - GTDB or RefSeq microbial pseudo-reads provided together with the workflow (no path is needed, just the name of the file)</li>
+<li>GTDB_ANNOT     - GTDB annotation file GTDB_fna2name.txt provided together with the workflow</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=adc4c172-c3e5-4df1-b1c5-53e82a76e21e">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now we can start the workflow with the following command line:</p>
 </div>
 </div>
 </div>
@@ -7672,7 +7752,7 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  7 20:20 <span class="ansi-blue-intense
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span>./micr_cont_detect.sh<span class="w"> </span>GCF_002220235.fna.gz<span class="w"> </span>/home/nikolay/MCWorkflow/data<span class="w"> </span>GTDB<span class="w"> </span><span class="m">4</span><span class="w"> </span>GTDB_sliced_seqs_sliding_window.fna.gz<span class="w"> </span>GTDB_fna2name.txt
@@ -7731,35 +7811,332 @@ ANALYSIS FOR GCF_002220235.fna.gz REFERENCE GENOME FINISHED SUCCESSFULLY
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8ab40af3-decd-4d3d-b592-27c9931bebf1">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d4b8649b-db94-412c-9d11-d19f24b8aa6b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>For the toy-dataset and the small eukaryotic reference genome, the workflow takes only a few seconds to finish. Please note that for real-world applications, the alignment step is the most time consuming. Since the full GTDB sliced microbial pseudo-reads data set includes 26 billion reads, to our experience, the alignment to e.g. mammalian reference genomes can take up to 48 hours on an HPC compute node with 20 cores. Multi-threading is crucial here, more available threads may considerable speed up the workflow execution.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7be89237-ec08-4952-a8e3-c30bac6fb37c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Interepreting-results-">Interepreting results <a class="anchor" id="Interpreting-results"></a><a class="anchor-link" href="#Interepreting-results-">¶</a></h3><p>Let us now go through the main outputs-files of the workflow. First of all, we see the bt2l Bowtie2 index-files within the data-folder, and the verbose output of bowtie2-build command was written to bowtie2-build.log file.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=dcfb6f20-9309-445a-ab28-bec2782d0955">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-bash"><pre><span></span>
+<div class="highlight hl-bash"><pre><span></span><span class="nb">cd</span><span class="w"> </span>data<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ls<span class="w"> </span>-l
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=dcfb6f20-9309-445a-ab28-bec2782d0955">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>total 49424
+-rw-rw-r-- 1 nikolay nikolay    33688 mar  8 11:45 bowtie2-build.log
+-rwxrwxr-x 1 nikolay nikolay  4941250 mar  8 11:00 <span class="ansi-green-intense-fg ansi-bold">GCF_002220235.fna.gz</span>
+-rw-rw-r-- 1 nikolay nikolay 13403961 mar  8 11:45 GCF_002220235.fna.gz.1.bt2l
+-rw-rw-r-- 1 nikolay nikolay  7519068 mar  8 11:45 GCF_002220235.fna.gz.2.bt2l
+-rw-rw-r-- 1 nikolay nikolay      709 mar  8 11:44 GCF_002220235.fna.gz.3.bt2l
+-rw-rw-r-- 1 nikolay nikolay  3759531 mar  8 11:44 GCF_002220235.fna.gz.4.bt2l
+drwxrwxr-x 2 nikolay nikolay     4096 mar  8 11:45 <span class="ansi-blue-intense-fg ansi-bold">GCF_002220235.fna.gz_GTDB</span>
+-rw-rw-r-- 1 nikolay nikolay 13403961 mar  8 11:45 GCF_002220235.fna.gz.rev.1.bt2l
+-rw-rw-r-- 1 nikolay nikolay  7519068 mar  8 11:45 GCF_002220235.fna.gz.rev.2.bt2l
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b2e1e190-92b1-4bbd-bff2-26a98a667e4c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Further, all the main outputs of the workflow were placed to the <strong>GCF_002220235.fna.gz_GTDB</strong> folder, let us navigate to the folder and check its content:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=37d3a79a-e3b4-4386-a278-8c63501f5cd1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-bash"><pre><span></span>
+<div class="highlight hl-bash"><pre><span></span><span class="nb">cd</span><span class="w"> </span>GCF_002220235.fna.gz_GTDB<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ls<span class="w"> </span>-l
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=dfea4c71-5aae-4dc0-8b64-a344f668fced">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>total 128
+-rw-rw-r-- 1 nikolay nikolay   319 mar  8 11:45 contigs_abund_sorted_GTDB_GCF_002220235.fna.gz.txt
+-rw-rw-r-- 1 nikolay nikolay   477 mar  8 11:45 contigs_boc_sorted_GTDB_GCF_002220235.fna.gz.txt
+-rw-rw-r-- 1 nikolay nikolay 36549 mar  8 11:45 coords_micr_contam_GCF_002220235.fna.gz.txt
+-rw-rw-r-- 1 nikolay nikolay    23 mar  8 11:45 microbes_abundant_GTDB_GCF_002220235.fna.gz.txt
+-rw-rw-r-- 1 nikolay nikolay 43483 mar  8 11:45 MicrReads_aligned_to_GCF_002220235.fna.gz.bam
+-rw-rw-r-- 1 nikolay nikolay   309 mar  8 11:45 MicrReads_aligned_to_GCF_002220235.fna.gz.bam.csi
+-rw-rw-r-- 1 nikolay nikolay  1244 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_023992.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  1858 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_023997.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2016 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024000.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2171 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024001.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2147 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024003.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2404 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024004.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2504 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024006.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  3108 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024008.1__GCF_002220235.fna.gz.boc.gz</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=41ddddde-5c86-4688-8002-16c38293a4ae">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Here you can see a number of files. Probably the main file is <strong>coords_micr_contam_GCF_002220235.fna.gz.txt</strong>, this is the coordinates of microbial-like regions in BED-format (despite the file does not have *.bed - extension). The columns in this file have the following meaning: 1) name (id) of the eukaryotic reference genome profiles, 2) contig / scaffold / chromosome id within the eukaryotic reference genome containing microvbial-like region, 3) start coordinate of the detected microbial-like region, 4) end coordinate of the detected microbial-like region, 5) genomic length of the microbial-like region, 6) total number of reads aligned to the detected microbial-like region, 7) average number of reads supporting each position within the detected microbial-like region, 8) the next five columns represent top abundant microbial species for each detected microbial-like region (the number of reads is reported for each of the top abundant microbes); if fewer than five unique microbes are dicovered within the microbial-like region, the rest of the columns contain recods "NA_reads_NA".</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=571d62dc-75a7-4c04-b941-b3e51bd47e0c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-bash"><pre><span></span>head<span class="w"> </span>coords_micr_contam_GCF_002220235.fna.gz.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1-10
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>ORGANISM	CONTIG	START	END	LENGTH	N_READS	AVERAGE_DEPTH	MICR1	MICR2	MICR3
+GCF_002220235.fna.gz	NC_023997.1	231657	231716	59	1	1	1_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+GCF_002220235.fna.gz	NC_023997.1	231807	232156	349	26	4	26_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+GCF_002220235.fna.gz	NC_023997.1	232752	232891	139	9	4	9_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+GCF_002220235.fna.gz	NC_023997.1	232905	232964	59	1	1	1_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+GCF_002220235.fna.gz	NC_023997.1	233015	233104	89	4	3	4_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+GCF_002220235.fna.gz	NC_023997.1	233145	233369	224	13	3	13_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+GCF_002220235.fna.gz	NC_023997.1	233373	233377	4	1	1	1_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+GCF_002220235.fna.gz	NC_023997.1	233395	233494	99	3	2	3_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+GCF_002220235.fna.gz	NC_023997.1	233515	233694	179	11	4	11_reads_UBA796_sp002707085	NA_reads_NA	NA_reads_NA
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=134011b7-9e9b-4b71-b840-13993071c381">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Further, congigs within the eukaryotic reference genome sorted by the total number of aligned microbial pseuso-reads and contig-wide breadth of coverage are reported in <strong>contigs_abund_sorted_GTDB_GCF_002220235.fna.gz.tx</strong> and <strong>contigs_boc_sorted_GTDB_GCF_002220235.fna.gz.txt</strong> files, respectively.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=59a98fea-ab46-4855-aabf-6aca74c0b8e3">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-bash"><pre><span></span>head<span class="w"> </span>contigs_abund_sorted_GTDB_GCF_002220235.fna.gz.txt
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>ORGANISM	CONTIG	N_READS
+GCF_002220235.fna.gz	NC_023997.1	347
+GCF_002220235.fna.gz	NC_024004.1	274
+GCF_002220235.fna.gz	NC_024008.1	221
+GCF_002220235.fna.gz	NC_023992.1	193
+GCF_002220235.fna.gz	NC_024006.1	186
+GCF_002220235.fna.gz	NC_024001.1	175
+GCF_002220235.fna.gz	NC_024000.1	123
+GCF_002220235.fna.gz	NC_024003.1	59
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=98162f5d-543d-419a-8be6-85f9870a598a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-bash"><pre><span></span>head<span class="w"> </span>contigs_boc_sorted_GTDB_GCF_002220235.fna.gz.txt
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>ORGANISM	CONTIG	N_READS	LENGTH	BOC
+GCF_002220235.fna.gz	NC_023997.1	347	712459	0.00871348
+GCF_002220235.fna.gz	NC_023992.1	193	465570	0.00777327
+GCF_002220235.fna.gz	NC_024004.1	274	1019276	0.00525471
+GCF_002220235.fna.gz	NC_024008.1	221	1352724	0.00400451
+GCF_002220235.fna.gz	NC_024001.1	175	937610	0.00396433
+GCF_002220235.fna.gz	NC_024006.1	186	1091008	0.00389915
+GCF_002220235.fna.gz	NC_024000.1	123	895536	0.00294349
+GCF_002220235.fna.gz	NC_024003.1	59	989707	0.00161462
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2f5fb8f3-4ba6-4dc0-8618-bf607013a951">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The N_READS coluumn in both files reports the number of microbial pseudo-reads aligned to each contig / scaffold / chromosome within the eukaryotic reference genome. In addition, the LENGTH and BOC columns in the "boc_sorted" file report the length of each contig / scaffold / chromosome in the eukaryotic reference and the breadth of coverage (BOC - fraction of reference nucleotides covered at least once), respectively. Finally, <strong>microbes_abundant_GTDB_GCF_002220235.fna.gz.txt</strong> file contains GTDB microbial species (their reference genome ids) sorted by their total abundance within the whole eukaryotic reference genome.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bb0ee231-3614-4ac9-a990-68a14d698304">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-bash"><pre><span></span>head<span class="w"> </span>microbes_abundant_GTDB_GCF_002220235.fna.gz.txt
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>   1578 5oFfr3yp0G.fna
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d835d8ec-71f0-4531-ad70-1659da24f474">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>In this particular example, we had only one GTDB microbial species <em>UBA796 sp002707085</em> (with the reference 5oFfr3yp0G.fna) belonging to the phylum Myxococcota in the GTDB databse. All the 1578 micobial pseudo-reads aligned to the green algae reference genome belonged to that single microbe. The bam-file containng the alignments is <strong>MicrReads_aligned_to_GCF_002220235.fna.gz.bam</strong>, let us quickly check that there are 1578 aligned reads in total.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8ea1a5a6-45b5-4c23-a7be-db27f4a1b373">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-bash"><pre><span></span>samtools<span class="w"> </span>view<span class="w"> </span>MicrReads_aligned_to_GCF_002220235.fna.gz.bam<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>1578
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ca7418b5-8f5c-43e1-a2bc-5700adcf5ff4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The *.boc.gz files contain the outputs from samtools depth for each contig / scaffold / chromosome within the eukaryotic reference genome. They are not very important and can be deleted for the sake of disk space.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=473e5f44-0750-455e-82fe-4d63cfcadba5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
