@@ -6,10 +6,10 @@ The workflow was developed by Nikolay Oskolkov, Lund University, Sweden, within 
 
 If you use the workflow for your research, please cite our manuscript:
 
-    Nikolay Oskolkov, Chenyu Jin, Samantha López Clinton, Flore Wijnands, Ernst Johnson, Benjamin Guinet, 
-    Verena Kutschera, Cormac Kinsella, Peter D. Heintzman and Tom van der Valk, Disinfecting eukaryotic 
-    reference genomes to improve taxonomic inference from environmental ancient metagenomic data, 
-    manuscript in preparation
+    Nikolay Oskolkov, Chenyu Jin, Samantha López Clinton, Flore Wijnands, Ernst Johnson, 
+    Benjamin Guinet, Verena Kutschera, Cormac Kinsella, Peter D. Heintzman and Tom van der Valk, 
+    Disinfecting eukaryotic reference genomes to improve taxonomic inference from environmental 
+    ancient metagenomic data, manuscript in preparation
 
 Questions regarding the dataset should be sent to nikolay.oskolkov@scilifelab.se
 
