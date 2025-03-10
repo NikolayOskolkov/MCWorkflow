@@ -14,3 +14,14 @@ If you use the workflow for your research, please cite our manuscript:
 Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956.
 
 Questions regarding the dataset should be sent to nikolay.oskolkov@scilifelab.se
+
+## Quick start
+Please clone this repository and read the very detailed `vignette.html`, please follow the preparation steps described in the vignette, after that the workflow can be executed as:
+
+    cd /home/nikolay
+    git clone https://github.com/NikolayOskolkov/MCWorkflow
+    cd MCWorkflow
+    ./micr_cont_detect.sh GCF_002220235.fna.gz /home/nikolay/MCWorkflow/data GTDB 4 \
+    GTDB_sliced_seqs_sliding_window.fna.gz GTDB_fna2name.txt
+
+The vignette `vignette.html` walks you through the explanations of the workflow parameters and interpretation of the output files.
