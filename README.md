@@ -11,6 +11,6 @@ If you use the workflow for your research, please cite our manuscript:
     Disinfecting eukaryotic reference genomes to improve taxonomic inference from environmental 
     ancient metagenomic data, manuscript in preparation
 
-Questions regarding the dataset should be sent to nikolay.oskolkov@scilifelab.se
+Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956.
 
-The pre-computed microbial pseudo-reads are available at the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956
+Questions regarding the dataset should be sent to nikolay.oskolkov@scilifelab.se
