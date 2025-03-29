@@ -9,7 +9,8 @@ If you use the workflow for your research, please cite our manuscript:
     Nikolay Oskolkov, Chenyu Jin, Samantha López Clinton, Flore Wijnands, Ernst Johnson, 
     Benjamin Guinet, Verena Kutschera, Cormac Kinsella, Peter D. Heintzman and Tom van der Valk, 
     Disinfecting eukaryotic reference genomes to improve taxonomic inference from environmental 
-    ancient metagenomic data, manuscript in preparation
+    ancient metagenomic data, https://www.biorxiv.org/content/10.1101/2025.03.19.644176v1, 
+    https://doi.org/10.1101/2025.03.19.644176
 
 Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956.
 
