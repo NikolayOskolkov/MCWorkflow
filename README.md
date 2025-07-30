@@ -25,12 +25,9 @@ Please clone this repository and install the workflow tools as follows:
     conda env create -f environment.yaml
     conda activate MCWorkflow
 
-Please read the very detailed `vignette.html`, please follow the preparation steps described in the vignette, after that the workflow can be executed as:
+Then you can run the workflow as:
 
-    cd /home/nikolay
-    git clone https://github.com/NikolayOskolkov/MCWorkflow
-    cd MCWorkflow
-    ./micr_cont_detect.sh GCF_002220235.fna.gz /home/nikolay/MCWorkflow/data GTDB 4 \
+    ./micr_cont_detect.sh GCF_002220235.fna.gz data GTDB 4 \
     GTDB_sliced_seqs_sliding_window.fna.gz GTDB_fna2name.txt
 
-The vignette `vignette.html` walks you through the explanations of the workflow parameters and interpretation of the output files.
+Please also read the very detailed `vignette.html` and follow the preparation steps described there. The vignette `vignette.html` walks you through the explanations of the workflow parameters and interpretation of the output files.
