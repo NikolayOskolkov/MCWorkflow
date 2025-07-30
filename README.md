@@ -17,7 +17,15 @@ Please note that in this gitub reporsitory, we provide a small subset of microbi
 Questions regarding the dataset should be sent to nikolay.oskolkov@scilifelab.se
 
 ## Quick start
-Please clone this repository and read the very detailed `vignette.html`, please follow the preparation steps described in the vignette, after that the workflow can be executed as:
+
+Please clone this repository and install the workflow tools as follows:
+
+    git clone https://github.com/NikolayOskolkov/MCWorkflow
+    cd MCWorkflow
+    conda env create -f environment.yaml
+    conda activate MCWorkflow
+
+Please read the very detailed `vignette.html`, please follow the preparation steps described in the vignette, after that the workflow can be executed as:
 
     cd /home/nikolay
     git clone https://github.com/NikolayOskolkov/MCWorkflow
