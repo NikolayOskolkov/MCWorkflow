@@ -1,0 +1,11 @@
+name: MCWorkflow
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  # core packages for workflow
+  - bowtie2
+  - samtools
+  - r-base
