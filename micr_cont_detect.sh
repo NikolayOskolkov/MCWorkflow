@@ -34,7 +34,7 @@ bowtie2-build --large-index ${REF_GENOME} ${REF_GENOME} --threads ${THREADS} >> 
 cd ${REF_GENOME}_${REFSEQ_OR_GTDB}
 
 echo ALIGNING MICROBIAL READS WITH BOWTIE2 TO ${REF_GENOME} REFERENCE GENOME
-bowtie2 --large-index -f -k 10 -x "${INPUT_DIR}"/${REF_GENOME} --end-to-end --quiet --threads ${THREADS} --very-sensitive -U "${INPUT_DIR}"/../${MICR_READS} | samtools view -bS -F 4 -h -@ ${THREADS} - | samtools sort -@ ${THREADS} - > MicrReads_aligned_to_${REF_GENOME}.bam
+bowtie2 --large-index -f -k 10 -x ../${REF_GENOME} --end-to-end --quiet --threads ${THREADS} --very-sensitive -U ../../${MICR_READS} | samtools view -bS -F 4 -h -@ ${THREADS} - | samtools sort -@ ${THREADS} - > MicrReads_aligned_to_${REF_GENOME}.bam
 samtools index -c MicrReads_aligned_to_${REF_GENOME}.bam
 
 printf "\n"; echo RANKING ${REF_GENOME} CONTIGS BY NUMBER OF MAPPED MICROBIAL READS
@@ -53,7 +53,7 @@ samtools depth -g 0x100 -a ${j}.bam | cut -f3 > ${j}__${REF_GENOME}.boc
 awk -v covered_length=$(awk '{if($1>0)print$0}' ${j}__${REF_GENOME}.boc | wc -l) -v total_length=$(wc -l ${j}__${REF_GENOME}.boc | cut -f1 -d ' ') 'BEGIN { print ( covered_length / total_length ) }' >> boc_per_ref.txt
 wc -l ${j}__${REF_GENOME}.boc | cut -f1 -d ' ' >> total_length_per_ref.txt
 echo EXTRACTING COORDINATES OF MICROBIAL CONTAMINATION
-Rscript "${INPUT_DIR}"/../extract_coords_micr_contam.R ${REFSEQ_OR_GTDB} "${INPUT_DIR}"/../${GTDB_ANNOT}
+Rscript ../../extract_coords_micr_contam.R ${REFSEQ_OR_GTDB} ../../${GTDB_ANNOT}
 echo DELETING BAM AND COMPRESSING BOC FILES
 rm ${j}.bam
 gzip ${j}__${REF_GENOME}.boc
