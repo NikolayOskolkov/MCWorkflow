@@ -6,6 +6,7 @@ channels:
 
 dependencies:
   # core packages for workflow
+  - nextflow
   - bowtie2
   - samtools
   - r-base
