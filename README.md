@@ -30,4 +30,8 @@ Then you can run the workflow as:
     ./micr_cont_detect.sh GCF_002220235.fna.gz data GTDB 4 \
     GTDB_sliced_seqs_sliding_window.fna.gz GTDB_fna2name.txt
 
+Alternatively, you can specify the workflow input files and parameters in the `nextflow.config` and run it using Nextflow:
+
+    nextflow run main.nf
+
 Please also read the very detailed `vignette.html` and follow the preparation steps described there. The vignette `vignette.html` walks you through the explanations of the workflow parameters and interpretation of the output files.
