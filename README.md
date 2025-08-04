@@ -28,7 +28,7 @@ Please clone this repository and install the workflow tools as follows:
 Then you can run the workflow as:
 
     ./micr_cont_detect.sh GCF_002220235.fna.gz data GTDB 4 \
-    GTDB_sliced_seqs_sliding_window.fna.gz GTDB_fna2name.txt
+    GTDB_sliced_seqs_sliding_window.fna.gz 10
 
 Alternatively, you can specify the workflow input files and parameters in the `nextflow.config` and run it using Nextflow:
 
