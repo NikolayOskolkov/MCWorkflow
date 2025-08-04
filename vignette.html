@@ -7573,11 +7573,11 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Nikol
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Cloning into 'MCWorkflow'...
-remote: Enumerating objects: 23, done.
-remote: Counting objects: 100% (23/23), done.
-remote: Compressing objects: 100% (16/16), done.
-remote: Total 23 (delta 6), reused 14 (delta 3), pack-reused 0 (from 0)
-Unpacking objects: 100% (23/23), done.
+remote: Enumerating objects: 86, done.
+remote: Counting objects: 100% (86/86), done.
+remote: Compressing objects: 100% (68/68), done.
+remote: Total 86 (delta 44), reused 38 (delta 13), pack-reused 0 (from 0)
+Unpacking objects: 100% (86/86), done.
 </pre>
 </div>
 </div>
@@ -7604,16 +7604,20 @@ Unpacking objects: 100% (23/23), done.
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>total 7584
-drwxrwxr-x 2 nikolay nikolay    4096 mar  8 11:00 <span class="ansi-blue-intense-fg ansi-bold">data</span>
--rwxrwxr-x 1 nikolay nikolay    6265 mar  8 11:00 <span class="ansi-green-intense-fg ansi-bold">extract_coords_micr_contam.R</span>
--rw-rw-r-- 1 nikolay nikolay 3766396 mar  8 11:00 GTDB_fna2name.txt
--rw-rw-r-- 1 nikolay nikolay 3675565 mar  8 11:00 <span class="ansi-red-intense-fg ansi-bold">GTDB_sliced_seqs_sliding_window.fna.gz</span>
-drwxrwxr-x 2 nikolay nikolay    4096 mar  8 11:00 <span class="ansi-blue-intense-fg ansi-bold">images</span>
--rwxrwxr-x 1 nikolay nikolay    5000 mar  8 11:00 <span class="ansi-green-intense-fg ansi-bold">micr_cont_detect.sh</span>
--rw-rw-r-- 1 nikolay nikolay      26 mar  8 11:00 README.md
--rw-rw-r-- 1 nikolay nikolay  282437 mar  8 11:00 vignette.html
--rw-rw-r-- 1 nikolay nikolay    7822 mar  8 11:00 vignette.ipynb
+<pre>total 7640
+drwxrwxr-x 2 nikolay nikolay    4096 aug  4 12:01 <span class="ansi-blue-intense-fg ansi-bold">data</span>
+-rw-rw-r-- 1 nikolay nikolay     152 aug  4 12:01 environment.yaml
+-rwxrwxr-x 1 nikolay nikolay    7089 aug  4 12:01 <span class="ansi-green-intense-fg ansi-bold">extract_coords_micr_contam.R</span>
+-rw-rw-r-- 1 nikolay nikolay 3766396 aug  4 12:01 GTDB_fna2name.txt
+-rw-rw-r-- 1 nikolay nikolay 3675565 aug  4 12:01 <span class="ansi-red-intense-fg ansi-bold">GTDB_sliced_seqs_sliding_window.fna.gz</span>
+drwxrwxr-x 2 nikolay nikolay    4096 aug  4 12:01 <span class="ansi-blue-intense-fg ansi-bold">images</span>
+-rw-rw-r-- 1 nikolay nikolay       4 aug  4 12:01 LICENSE.txt
+-rw-rw-r-- 1 nikolay nikolay    1191 aug  4 12:01 main.nf
+-rwxrwxr-x 1 nikolay nikolay    5269 aug  4 12:01 <span class="ansi-green-intense-fg ansi-bold">micr_cont_detect.sh</span>
+-rw-rw-r-- 1 nikolay nikolay     860 aug  4 12:01 nextflow.config
+-rw-rw-r-- 1 nikolay nikolay    2388 aug  4 12:01 README.md
+-rw-rw-r-- 1 nikolay nikolay  306912 aug  4 12:01 vignette.html
+-rw-rw-r-- 1 nikolay nikolay   23410 aug  4 12:01 vignette.ipynb
 </pre>
 </div>
 </div>
@@ -7630,11 +7634,11 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  8 11:00 <span class="ansi-blue-intense
 <ul>
 <li><strong>micr_cont_detect.sh</strong> - main shell-script that builds eukaryotic reference genome index, runs alignments and does pre- and post-processing</li>
 <li><strong>extract_coords_micr_contam.R</strong> - helping R script that extracts coordinates of covered regions and annotates them with microbial species</li>
-<li><strong>GTDB_sliced_seqs_sliding_window.fna.gz</strong> - prepared 60bp long GTDB microbial pseudo-reads to be aligned to eukaryotic references</li>
+<li><strong>GTDB_sliced_seqs_sliding_window.fna.gz</strong> - prepared 60 bp long GTDB microbial pseudo-reads to be aligned to eukaryotic references</li>
 <li><strong>GTDB_fna2name.txt</strong> - annotation of pseudo-reads with scientific microbial names according to GTDB taxonomy</li>
 </ul>
 <p>Currently it is important that all the four files are located in the same directory. We recommend to perform all the analysis in this cloned github repository in order to avoid complications with changing the paths and hacking the codes. Please note that the <strong>GTDB_sliced_seqs_sliding_window.fna.gz</strong> file is a small (3.7 MB) demonstration subset of the complete dataset (234 GB) available at the SciLifeLab Figshare <a href="https://doi.org/10.17044/scilifelab.28491956">https://doi.org/10.17044/scilifelab.28491956</a> which should be used for real-world applications, i.e. for your research you will have to replace the toy-dataset from the github repository by the large one (with identical file name) from the SciLifeLab Figshare. The toy-dataset includes pseudo-reads from only one bacterium named as <em>UBA796 sp002707085</em> (with corresponding reference 5oFfr3yp0G.fna) belonging to the phylum Myxococcota in the GTDB databse.</p>
-<p>Next, we recommend to place the eukaryotic reference genomes tobe profiled for microbial-like sequences into the folder "data" within the cloned repository as shown above. Right now, the "data"-folder is already present in the cloned repository and the <em>Bathycoccus prasinos</em> reference genome GCF_002220235.fna.gz has been already placed within this folder. Let us double-check that the eukaryotic reference genome is indeed inside the "data"-folder:</p>
+<p>Next, we recommend to place the eukaryotic reference genomes to be profiled for microbial-like sequences into the folder <strong>data</strong> within the cloned repository as shown above. Right now, the "data"-folder is already present in the cloned repository and the <em>Bathycoccus prasinos</em> reference genome GCF_002220235.fna.gz has been already placed within this folder. Let us double-check that the eukaryotic reference genome is indeed inside the "data"-folder:</p>
 </div>
 </div>
 </div>
@@ -7659,8 +7663,8 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  8 11:00 <span class="ansi-blue-intense
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>total 4828
--rwxrwxr-x 1 nikolay nikolay 4941250 mar  8 11:00 <span class="ansi-green-intense-fg ansi-bold">GCF_002220235.fna.gz</span>
+<pre>total 4832
+-rwxrwxr-x 1 nikolay nikolay 4941250 aug  4 12:01 <span class="ansi-green-intense-fg ansi-bold">GCF_002220235.fna.gz</span>
 </pre>
 </div>
 </div>
@@ -7723,15 +7727,15 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  8 11:00 <span class="ansi-blue-intense
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Running-workflow-">Running workflow <a class="anchor" id="Running-workflow"></a><a class="anchor-link" href="#Running-workflow-">¶</a></h3><p>Before you start the workflow, please make sure that <strong>R, awk, Bowtie2 and samtools are installed</strong> and available in your path. If you run the workflow on an HPC cluster, please make sure that you have loaded the corresponding modules. The workflow has the following format:</p>
-<p><strong>./micr_cont_detect.sh REF_GENOME INPUT_DIR REFSEQ_OR_GTDB THREADS MICR_READS GTDB_ANNOT</strong></p>
+<p><strong>./micr_cont_detect.sh REF_GENOME INPUT_DIR TYPE_OF_PSEUDO_READS THREADS PSEUDO_READS N_ALLOWED_MULTIMAPPERS</strong></p>
 <p>where:</p>
 <ul>
-<li>REF_GENOME     - gzipped eukaryotic reference genome in FASTA-format (no path is needed, just the name of the file)</li>
-<li>INPUT_DIR      - directory containing the eukaryotic reference genome (here you need to provide the absolute path)</li>
-<li>REFSEQ_OR_GTDB - whether RefSeq OR GTDB sliced microbial pseudo-reads are used, can only be "RefSeq" or "GTDB"</li>
-<li>THERADS        - number of threads available</li>
-<li>MICR_READS     - GTDB or RefSeq microbial pseudo-reads provided together with the workflow (no path is needed, just the name of the file)</li>
-<li>GTDB_ANNOT     - GTDB annotation file GTDB_fna2name.txt provided together with the workflow</li>
+<li>REF_GENOME              - gzipped eukaryotic reference genome in FASTA-format (no path is needed, just the name of the file)</li>
+<li>INPUT_DIR               - directory containing the eukaryotic reference genome (here you need to provide the absolute path)</li>
+<li>TYPE_OF_PSEUDO_READS    - whether RefSeq or GTDB or human pseudo-reads are used, can only be "RefSeq" or "GTDB" or "human"</li>
+<li>THERADS                 - number of threads available</li>
+<li>PSEUDO_READS            - GTDB, RefSeq or human pseudo-reads provided together with workflow (no path is needed, just the name of the file)</li>
+<li>N_ALLOWED_MULTIMAPPERS  - number of multi-mapping pseudo-reads allowed by Bowtie2</li>
 </ul>
 </div>
 </div>
@@ -7755,7 +7759,7 @@ drwxrwxr-x 2 nikolay nikolay    4096 mar  8 11:00 <span class="ansi-blue-intense
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-bash"><pre><span></span>./micr_cont_detect.sh<span class="w"> </span>GCF_002220235.fna.gz<span class="w"> </span>/home/nikolay/MCWorkflow/data<span class="w"> </span>GTDB<span class="w"> </span><span class="m">4</span><span class="w"> </span>GTDB_sliced_seqs_sliding_window.fna.gz<span class="w"> </span>GTDB_fna2name.txt
+<div class="highlight hl-bash"><pre><span></span>./micr_cont_detect.sh<span class="w"> </span>GCF_002220235.fna.gz<span class="w"> </span>/home/nikolay/MCWorkflow/data<span class="w"> </span>GTDB<span class="w"> </span><span class="m">4</span><span class="w"> </span>GTDB_sliced_seqs_sliding_window.fna.gz<span class="w"> </span><span class="m">10</span>
 </pre></div>
 </div>
 </div>
@@ -7854,16 +7858,16 @@ ANALYSIS FOR GCF_002220235.fna.gz REFERENCE GENOME FINISHED SUCCESSFULLY
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>total 49424
--rw-rw-r-- 1 nikolay nikolay    33688 mar  8 11:45 bowtie2-build.log
--rwxrwxr-x 1 nikolay nikolay  4941250 mar  8 11:00 <span class="ansi-green-intense-fg ansi-bold">GCF_002220235.fna.gz</span>
--rw-rw-r-- 1 nikolay nikolay 13403961 mar  8 11:45 GCF_002220235.fna.gz.1.bt2l
--rw-rw-r-- 1 nikolay nikolay  7519068 mar  8 11:45 GCF_002220235.fna.gz.2.bt2l
--rw-rw-r-- 1 nikolay nikolay      709 mar  8 11:44 GCF_002220235.fna.gz.3.bt2l
--rw-rw-r-- 1 nikolay nikolay  3759531 mar  8 11:44 GCF_002220235.fna.gz.4.bt2l
-drwxrwxr-x 2 nikolay nikolay     4096 mar  8 11:45 <span class="ansi-blue-intense-fg ansi-bold">GCF_002220235.fna.gz_GTDB</span>
--rw-rw-r-- 1 nikolay nikolay 13403961 mar  8 11:45 GCF_002220235.fna.gz.rev.1.bt2l
--rw-rw-r-- 1 nikolay nikolay  7519068 mar  8 11:45 GCF_002220235.fna.gz.rev.2.bt2l
+<pre>total 49432
+-rw-rw-r-- 1 nikolay nikolay    33688 aug  4 12:09 bowtie2-build.log
+-rwxrwxr-x 1 nikolay nikolay  4941250 aug  4 12:01 <span class="ansi-green-intense-fg ansi-bold">GCF_002220235.fna.gz</span>
+-rw-rw-r-- 1 nikolay nikolay 13403961 aug  4 12:08 GCF_002220235.fna.gz.1.bt2l
+-rw-rw-r-- 1 nikolay nikolay  7519068 aug  4 12:08 GCF_002220235.fna.gz.2.bt2l
+-rw-rw-r-- 1 nikolay nikolay      709 aug  4 12:08 GCF_002220235.fna.gz.3.bt2l
+-rw-rw-r-- 1 nikolay nikolay  3759531 aug  4 12:08 GCF_002220235.fna.gz.4.bt2l
+drwxrwxr-x 2 nikolay nikolay     4096 aug  4 12:09 <span class="ansi-blue-intense-fg ansi-bold">GCF_002220235.fna.gz_GTDB</span>
+-rw-rw-r-- 1 nikolay nikolay 13403961 aug  4 12:09 GCF_002220235.fna.gz.rev.1.bt2l
+-rw-rw-r-- 1 nikolay nikolay  7519068 aug  4 12:09 GCF_002220235.fna.gz.rev.2.bt2l
 </pre>
 </div>
 </div>
@@ -7902,20 +7906,20 @@ drwxrwxr-x 2 nikolay nikolay     4096 mar  8 11:45 <span class="ansi-blue-intens
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>total 128
--rw-rw-r-- 1 nikolay nikolay   319 mar  8 11:45 contigs_abund_sorted_GTDB_GCF_002220235.fna.gz.txt
--rw-rw-r-- 1 nikolay nikolay   477 mar  8 11:45 contigs_boc_sorted_GTDB_GCF_002220235.fna.gz.txt
--rw-rw-r-- 1 nikolay nikolay 36549 mar  8 11:45 coords_micr_contam_GCF_002220235.fna.gz.txt
--rw-rw-r-- 1 nikolay nikolay    23 mar  8 11:45 microbes_abundant_GTDB_GCF_002220235.fna.gz.txt
--rw-rw-r-- 1 nikolay nikolay 43483 mar  8 11:45 MicrReads_aligned_to_GCF_002220235.fna.gz.bam
--rw-rw-r-- 1 nikolay nikolay   309 mar  8 11:45 MicrReads_aligned_to_GCF_002220235.fna.gz.bam.csi
--rw-rw-r-- 1 nikolay nikolay  1244 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_023992.1__GCF_002220235.fna.gz.boc.gz</span>
--rw-rw-r-- 1 nikolay nikolay  1858 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_023997.1__GCF_002220235.fna.gz.boc.gz</span>
--rw-rw-r-- 1 nikolay nikolay  2016 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024000.1__GCF_002220235.fna.gz.boc.gz</span>
--rw-rw-r-- 1 nikolay nikolay  2171 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024001.1__GCF_002220235.fna.gz.boc.gz</span>
--rw-rw-r-- 1 nikolay nikolay  2147 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024003.1__GCF_002220235.fna.gz.boc.gz</span>
--rw-rw-r-- 1 nikolay nikolay  2404 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024004.1__GCF_002220235.fna.gz.boc.gz</span>
--rw-rw-r-- 1 nikolay nikolay  2504 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024006.1__GCF_002220235.fna.gz.boc.gz</span>
--rw-rw-r-- 1 nikolay nikolay  3108 mar  8 11:45 <span class="ansi-red-intense-fg ansi-bold">NC_024008.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay   319 aug  4 12:09 contigs_abund_sorted_GTDB_GCF_002220235.fna.gz.txt
+-rw-rw-r-- 1 nikolay nikolay   477 aug  4 12:09 contigs_boc_sorted_GTDB_GCF_002220235.fna.gz.txt
+-rw-rw-r-- 1 nikolay nikolay 36549 aug  4 12:09 coords_micr_contam_GCF_002220235.fna.gz.txt
+-rw-rw-r-- 1 nikolay nikolay    23 aug  4 12:09 microbes_abundant_GTDB_GCF_002220235.fna.gz.txt
+-rw-rw-r-- 1 nikolay nikolay  1244 aug  4 12:09 <span class="ansi-red-intense-fg ansi-bold">NC_023992.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  1858 aug  4 12:09 <span class="ansi-red-intense-fg ansi-bold">NC_023997.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2016 aug  4 12:09 <span class="ansi-red-intense-fg ansi-bold">NC_024000.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2171 aug  4 12:09 <span class="ansi-red-intense-fg ansi-bold">NC_024001.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2147 aug  4 12:09 <span class="ansi-red-intense-fg ansi-bold">NC_024003.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2404 aug  4 12:09 <span class="ansi-red-intense-fg ansi-bold">NC_024004.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  2504 aug  4 12:09 <span class="ansi-red-intense-fg ansi-bold">NC_024006.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay  3108 aug  4 12:09 <span class="ansi-red-intense-fg ansi-bold">NC_024008.1__GCF_002220235.fna.gz.boc.gz</span>
+-rw-rw-r-- 1 nikolay nikolay 43463 aug  4 12:09 PseudoReads_aligned_to_GCF_002220235.fna.gz.bam
+-rw-rw-r-- 1 nikolay nikolay   308 aug  4 12:09 PseudoReads_aligned_to_GCF_002220235.fna.gz.bam.csi
 </pre>
 </div>
 </div>
@@ -7937,7 +7941,7 @@ drwxrwxr-x 2 nikolay nikolay     4096 mar  8 11:45 <span class="ansi-blue-intens
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span>head<span class="w"> </span>coords_micr_contam_GCF_002220235.fna.gz.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1-10
@@ -7984,7 +7988,7 @@ GCF_002220235.fna.gz	NC_023997.1	233515	233694	179	11	4	11_reads_UBA796_sp002707
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span>head<span class="w"> </span>contigs_abund_sorted_GTDB_GCF_002220235.fna.gz.txt
@@ -8019,7 +8023,7 @@ GCF_002220235.fna.gz	NC_024003.1	59
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span>head<span class="w"> </span>contigs_boc_sorted_GTDB_GCF_002220235.fna.gz.txt
@@ -8056,7 +8060,7 @@ GCF_002220235.fna.gz	NC_024003.1	59	989707	0.00161462
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The N_READS coluumn in both files reports the number of microbial pseudo-reads aligned to each contig / scaffold / chromosome within the eukaryotic reference genome. In addition, the LENGTH and BOC columns in the "boc_sorted" file report the length of each contig / scaffold / chromosome in the eukaryotic reference and the breadth of coverage (BOC - fraction of reference nucleotides covered at least once), respectively. Finally, <strong>microbes_abundant_GTDB_GCF_002220235.fna.gz.txt</strong> file contains GTDB microbial species (their reference genome ids) sorted by their total abundance within the whole eukaryotic reference genome.</p>
+<p>The N_READS coluumn in both files reports the number of microbial pseudo-reads aligned to each contig / scaffold / chromosome within the eukaryotic reference genome. In addition, the LENGTH and BOC columns in the "boc_sorted" file report the length of each contig / scaffold / chromosome in the eukaryotic reference and the breadth of coverage (BOC - fraction of reference nucleotides covered at least once), respectively. Finally, <strong>microbes_abundant_GTDB_GCF_002220235.fna.gz.txt</strong> file contains GTDB microbial species (their reference genome ids) sorted by their total abundance within the whole eukaryotic reference genome. Note that this file will be absent when screening a reference genome for human contamination since all aligned pseudo-reads belong to human in this case.</p>
 </div>
 </div>
 </div>
@@ -8065,7 +8069,7 @@ GCF_002220235.fna.gz	NC_024003.1	59	989707	0.00161462
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-bash"><pre><span></span>head<span class="w"> </span>microbes_abundant_GTDB_GCF_002220235.fna.gz.txt
@@ -8094,7 +8098,7 @@ GCF_002220235.fna.gz	NC_024003.1	59	989707	0.00161462
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>In this particular example, we had only one GTDB microbial species <em>UBA796 sp002707085</em> (with the reference 5oFfr3yp0G.fna) belonging to the phylum Myxococcota in the GTDB databse. All the 1578 micobial pseudo-reads aligned to the green algae reference genome belonged to that single microbe. The bam-file containng the alignments is <strong>MicrReads_aligned_to_GCF_002220235.fna.gz.bam</strong>, let us quickly check that there are 1578 aligned reads in total.</p>
+<p>In this particular example, we had only one GTDB microbial species <em>UBA796 sp002707085</em> (with the reference 5oFfr3yp0G.fna) belonging to the phylum Myxococcota in the GTDB databse. All the 1578 micobial pseudo-reads aligned to the green algae reference genome belonged to that single microbe. The bam-file containng the alignments is <strong>PseudoReads_aligned_to_GCF_002220235.fna.gz.bam</strong>, let us quickly check that there are 1578 aligned reads in total.</p>
 </div>
 </div>
 </div>
@@ -8103,10 +8107,10 @@ GCF_002220235.fna.gz	NC_024003.1	59	989707	0.00161462
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-bash"><pre><span></span>samtools<span class="w"> </span>view<span class="w"> </span>MicrReads_aligned_to_GCF_002220235.fna.gz.bam<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+<div class="highlight hl-bash"><pre><span></span>samtools<span class="w"> </span>view<span class="w"> </span>PseudoReads_aligned_to_GCF_002220235.fna.gz.bam<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
 </pre></div>
 </div>
 </div>
