@@ -1,6 +1,6 @@
 # Microbial Contamination Workflow
 
-This is a vignette demonstrating the computational workflow for detecting coordinates of microbial-like sequences in eukaryotic reference genomes. The workflow accepts a reference genome in FASTA-format and outputs coordinates of microbial-like regions in BED-format. The workflow builds a Bowtie2 index of the eukaryotic reference genome and aligns pre-computed microbial GTDB v.214 (https://gtdb.ecogenomic.org/) pseudo-reads to the reference, then custom scripts are used for detection of the positions of covered regions and quantification of most abundant microbial contaminants.
+This is a computational workflow for detecting coordinates of microbial-like sequences in eukaryotic reference genomes. The workflow accepts a reference genome in FASTA-format and outputs coordinates of microbial-like regions in BED-format. The workflow builds a Bowtie2 index of the eukaryotic reference genome and aligns pre-computed microbial GTDB v.214 (https://gtdb.ecogenomic.org/) pseudo-reads to the reference, then custom scripts are used for detection of the positions of covered regions and quantification of most abundant microbial contaminants.
 
 The workflow was developed by Nikolay Oskolkov, Lund University, Sweden, within the NBIS SciLifeLab long-term support project, PI Tom van der Valk, Centre for Palaeogenetics, Stockholm, Sweden.
 
@@ -30,8 +30,27 @@ Then you can run the workflow as:
     ./micr_cont_detect.sh GCF_002220235.fna.gz data GTDB 4 \
     GTDB_sliced_seqs_sliding_window.fna.gz 10
 
+Here, `GCF_002220235.fna.gz` is the eukaryotic reference to be screened for microbial contamination, `data` is the directory containing the eukaryotic reference, `GTDB` is the type of pseudo-reads to be used for detecting exogenous regions in the eukaryotic reference (can be `GTGB`, `RefSeq` or `human`), `4` is the number of available threads, `GTDB_sliced_seqs_sliding_window.fna.gz` is the pre-computed pseudo-reads (small subset is provided in this github repository, the full datasets can be downloaded from the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956), and `10` is the number of allowed Bowtie2 multi-mappers.
+
+
+Please also read the very detailed `vignette.html` and follow the preparation steps described there. The vignette `vignette.html` walks you through the explanations of the workflow parameters and interpretation of the output files.
+
+
+
+## Nextflow implementation
+
 Alternatively, you can specify the workflow input files and parameters in the `nextflow.config` and run it using Nextflow:
 
     nextflow run main.nf
 
-Please also read the very detailed `vignette.html` and follow the preparation steps described there. The vignette `vignette.html` walks you through the explanations of the workflow parameters and interpretation of the output files.
+The Nextflow implementation is preferred for scalability and reproducibility purposes. Please place your reference genomes (fasta-files) to be screened for exogenous regions in the `data` folder. An example of the config-file, `nextflow.config`, can look like this:
+
+params {
+    input_dir = "data"                                             // folder with multiple reference genomes (fasta-files)
+    type_of_pseudo_reads = "GTDB"                                  // type of pseudo-reads to be used for screening the input reference genome, can be "GTDB", "RefSeq" or "human"
+    threads = 4                                                    // number of available threads
+    input_pseudo_reads = "GTDB_sliced_seqs_sliding_window.fna.gz"  // name of pre-computed file with pseudo-reads, can be "GTDB_sliced_seqs_sliding_window.fna.gz", "RefSeq_sliced_seqs_sliding_window.fna.gz" or "human_sliced_seqs_sliding_window.fna.gz"
+    n_allowed_multimappers = 10                                    // number of multi-mapping pseudo-reads allowed by Bowtie2, do not change this default number unless you know what you are doing
+}
+
+Please modify it to adjust for the number of available threads in your computational environment and the type of analysis, i.e. detecting microbial-like or human-like sequeneces in the reference genome, you would like to perform.
