@@ -30,7 +30,7 @@ Then you can run the workflow as:
     ./micr_cont_detect.sh GCF_002220235.fna.gz data GTDB 4 \
     GTDB_sliced_seqs_sliding_window.fna.gz 10
 
-Here, `GCF_002220235.fna.gz` is the eukaryotic reference to be screened for microbial contamination, `data` is the directory containing the eukaryotic reference, `GTDB` is the type of pseudo-reads to be used for detecting exogenous regions in the eukaryotic reference (can be `GTGB`, `RefSeq` or `human`), `4` is the number of available threads, `GTDB_sliced_seqs_sliding_window.fna.gz` is the pre-computed pseudo-reads (small subset is provided in this github repository, the full datasets can be downloaded from the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956), and `10` is the number of allowed Bowtie2 multi-mappers.
+Here, `GCF_002220235.fna.gz` is the eukaryotic reference to be screened for microbial contamination, `data` is the directory containing the eukaryotic reference, `GTDB` is the type of pseudo-reads to be used for detecting exogenous regions in the eukaryotic reference (can be `GTGB`, `RefSeq` or `human`), `4` is the number of available threads in your computational environment, `GTDB_sliced_seqs_sliding_window.fna.gz` is the pre-computed pseudo-reads (small subset is provided in this github repository, the full datasets can be downloaded from the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956), and `10` is the number of allowed Bowtie2 multi-mappers.
 
 
 Please also read the very detailed `vignette.html` and follow the preparation steps described there. The vignette `vignette.html` walks you through the explanations of the workflow parameters and interpretation of the output files.
