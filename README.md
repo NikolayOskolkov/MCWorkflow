@@ -1,6 +1,6 @@
 # GENome EXogenous (GENEX) sequence detection
 
-This is a computational workflow for detecting coordinates of microbial-like sequences in eukaryotic reference genomes. The workflow accepts a reference genome in FASTA-format and outputs coordinates of microbial-like regions in BED-format. The workflow builds a Bowtie2 index of the eukaryotic reference genome and aligns pre-computed microbial GTDB v.214 (https://gtdb.ecogenomic.org/) pseudo-reads to the reference, then custom scripts are used for detection of the positions of covered regions and quantification of most abundant microbial contaminants.
+This is a computational workflow for detecting coordinates of microbial-like or human-like sequences in eukaryotic and procaryotic reference genomes. The workflow accepts a reference genome in FASTA-format and outputs coordinates of microbial-like (human-like) regions in BED-format. The workflow builds a Bowtie2 index of the reference genome and aligns pre-computed microbial (GTDB v.214 or NCBI RefSeq) or human (hg38) pseudo-reads to the reference, then custom scripts are used for detection of the positions of covered regions and quantification of most abundant microbial species, the latter is only when screening for microbial-like sequences in eukaryotic referenes.
 
 The workflow was developed by Nikolay Oskolkov, Lund University, Sweden, within the NBIS SciLifeLab long-term support project, PI Tom van der Valk, Centre for Palaeogenetics, Stockholm, Sweden.
 
@@ -30,7 +30,7 @@ Then you can run the workflow as:
     ./micr_cont_detect.sh GCF_002220235.fna.gz data GTDB 4 \
     GTDB_sliced_seqs_sliding_window.fna.gz 10
 
-Here, `GCF_002220235.fna.gz` is the eukaryotic reference to be screened for microbial contamination, `data` is the directory containing the eukaryotic reference, `GTDB` is the type of pseudo-reads to be used for detecting exogenous regions in the eukaryotic reference (can be `GTGB`, `RefSeq` or `human`), `4` is the number of available threads in your computational environment, `GTDB_sliced_seqs_sliding_window.fna.gz` is the pre-computed pseudo-reads (small subset is provided in this github repository, the full datasets can be downloaded from the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956), and `10` is the number of allowed Bowtie2 multi-mappers.
+Here, `GCF_002220235.fna.gz` is the eukaryotic reference to be screened for microbial-like sequeneces, `data` is the directory containing the eukaryotic reference, `GTDB` is the type of pseudo-reads to be used for detecting exogenous regions in the eukaryotic reference (can be `GTGB`, `RefSeq` or `human`), `4` is the number of available threads in your computational environment, `GTDB_sliced_seqs_sliding_window.fna.gz` is the pre-computed pseudo-reads (small subset is provided in this github repository, the full datasets can be downloaded from the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956), and `10` is the number of allowed Bowtie2 multi-mappers.
 
 
 Please also read the very detailed `vignette.html` and follow the preparation steps described there. The vignette `vignette.html` walks you through the explanations of the workflow parameters and interpretation of the output files.
