@@ -45,12 +45,12 @@ Alternatively, you can specify the workflow input files and parameters in the `n
 
 The Nextflow implementation is preferred for scalability and reproducibility purposes. Please place your reference genomes (fasta-files) to be screened for exogenous regions in the `data` folder. An example of the config-file, `nextflow.config`, can look like this:
 
-params {
-    input_dir = "data"                                             // folder with multiple reference genomes (fasta-files)
-    type_of_pseudo_reads = "GTDB"                                  // type of pseudo-reads to be used for screening the input reference genome, can be "GTDB", "RefSeq" or "human"
-    threads = 4                                                    // number of available threads
-    input_pseudo_reads = "GTDB_sliced_seqs_sliding_window.fna.gz"  // name of pre-computed file with pseudo-reads, can be "GTDB_sliced_seqs_sliding_window.fna.gz", "RefSeq_sliced_seqs_sliding_window.fna.gz" or "human_sliced_seqs_sliding_window.fna.gz"
-    n_allowed_multimappers = 10                                    // number of multi-mapping pseudo-reads allowed by Bowtie2, do not change this default number unless you know what you are doing
-}
+    params {
+        input_dir = "data"                                             // folder with multiple reference genomes (fasta-files)
+        type_of_pseudo_reads = "GTDB"                                  // type of pseudo-reads to be used for screening the input reference genome, can be "GTDB", "RefSeq" or "human"
+        threads = 4                                                    // number of available threads
+        input_pseudo_reads = "GTDB_sliced_seqs_sliding_window.fna.gz"  // name of pre-computed file with pseudo-reads, can be "GTDB_sliced_seqs_sliding_window.fna.gz", "RefSeq_sliced_seqs_sliding_window.fna.gz" or "human_sliced_seqs_sliding_window.fna.gz"
+        n_allowed_multimappers = 10                                    // number of multi-mapping pseudo-reads allowed by Bowtie2, do not change this default number unless you know what you are doing
+    }
 
 Please modify it to adjust for the number of available threads in your computational environment and the type of analysis, i.e. detecting microbial-like or human-like sequeneces in the reference genome, you would like to perform.
