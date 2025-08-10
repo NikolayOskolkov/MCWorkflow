@@ -1,4 +1,4 @@
-# GENome EXogenous (GENEX) sequence detection workflow
+# GENome EXogenous (GENEX) sequence detection
 
 This is a computational workflow for detecting coordinates of microbial-like sequences in eukaryotic reference genomes. The workflow accepts a reference genome in FASTA-format and outputs coordinates of microbial-like regions in BED-format. The workflow builds a Bowtie2 index of the eukaryotic reference genome and aligns pre-computed microbial GTDB v.214 (https://gtdb.ecogenomic.org/) pseudo-reads to the reference, then custom scripts are used for detection of the positions of covered regions and quantification of most abundant microbial contaminants.
 
