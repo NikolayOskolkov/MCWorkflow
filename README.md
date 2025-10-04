@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/GNEX_logo.png" alt="Left Logo" height="200"/>
+  <img src="images/GENEX_logo.png" alt="Left Logo" height="200"/>
   &nbsp;&nbsp;&nbsp;
   <img src="images/aeDNA_logo.png" alt="Right Logo" height="200"/>
 </p>
