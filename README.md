@@ -1,3 +1,4 @@
+![](GENEX_logo.png)
 # GENome EXogenous (GENEX) sequence detection
 
 This is a computational workflow for detecting coordinates of microbial-like or human-like sequences in eukaryotic and procaryotic reference genomes. The workflow accepts a reference genome in FASTA-format and outputs coordinates of microbial-like (human-like) regions in BED-format. The workflow builds a Bowtie2 index of the reference genome and aligns pre-computed microbial (GTDB v.214 or NCBI RefSeq release 213) or human (hg38) pseudo-reads to the reference, then custom scripts are used for detection of the positions of covered regions and quantification of most abundant microbial species, the latter is only when screening for microbial-like sequences in eukaryotic referenes.
