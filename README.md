@@ -1,4 +1,8 @@
-<img src="images/GENEX_logo.png" alt="Logo" width="300"/>
+<p align="center">
+  <img src="images/GNEX_logo.png" alt="Left Logo" height="100"/>
+  &nbsp;&nbsp;&nbsp; <!-- adds a little space -->
+  <img src="images/aeDNA_logo.png" alt="Right Logo" height="100"/>
+</p>
 
 # GENome EXogenous (GENEX) sequence detection
 
