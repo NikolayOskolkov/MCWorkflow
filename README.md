@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="images/GENEX_logo.png" alt="Left Logo" height="350"/>
+  <img src="images/GENEX_logo.png" alt="Left Logo" height="320"/>
   &nbsp;&nbsp;&nbsp;
-  <img src="images/aeDNA_logo.png" alt="Right Logo" height="350"/>
+  <img src="images/aeDNA_logo.png" alt="Right Logo" height="320"/>
 </p>
 
 # GENome EXogenous (GENEX) sequence detection
