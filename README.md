@@ -19,6 +19,7 @@ If you use the workflow for your research, please cite our manuscript:
     GigaScience, Volume 14, 2025, giaf108, https://doi.org/10.1093/gigascience/giaf108
 
 Questions regarding the dataset should be sent to nikolay.oskolkov@scilifelab.se
+Question regarding the nextflow workflow refers to Chenyu.Jin(amend.jin@gmail.com).
 
 ## Quick start
 
@@ -33,22 +34,22 @@ Required programs
     git clone https://github.com/NikolayOskolkov/MCWorkflow
     cd MCWorkflow
 
-(2) Now we need to creat a directory of which the path is given to `pseudo_reads_file_dir` in `nextflow.config`. Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare https://doi.org/10.17044/scilifelab.28491956.
+(2) Now we need to creat a directory of which the path is given to the parameter `pseudo_reads_file_dir` in `nextflow.config`. Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare `https://doi.org/10.17044/scilifelab.28491956`.
 
-After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.gz) in the `pseudo_reads_file_dir` directory, you can then run which might take > 6 hours to obtain the subsetted database:
+After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.gz) in the `pseudo_reads_file_dir` directory, you can then run which might take > 6 hours to obtain the subsetted database:\
 `seqkit split -s 10000000 GTDB_sliced_seqs_sliding_window.fna.gz`
 
 (3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:
-   `input_dir`: the path to the directory with all fasta files (gzipped or not)
-   `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask
-    `pseudo_reads_file_dir`: where it contains all the subsets of sliced GTDB or other databases
-    `n_allowed_multimappers`: the number of allowed multimapper. Based on the test done in the paper, 10 is recommended.
-    `output_dir`: the path to the directory where you want all the outputs 
-    `work_dir`: where your MCWorkflow directory is
-    `fna2name`: the contig to species name correspondance file. It's GTDB_fna2name.txt for GTDB.
+   `input_dir`: the path to the directory with all fasta files (gzipped or not)\
+   `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask\
+    `pseudo_reads_file_dir`: where it contains all the subsets of sliced GTDB or other databases\
+    `n_allowed_multimappers`: the number of allowed multimapper. Based on the test done in the paper, 10 is recommended.\
+    `output_dir`: the path to the directory where you want all the outputs \
+    `work_dir`: where your MCWorkflow directory is\
+    `fna2name`: the contig to species name correspondance file. It's GTDB_fna2name.txt for GTDB.\
 
 (4) Then you can run the workflow as:
 
-    nextflow run main.nf -profile apptainer,conda -c test.config,dardel.config -resume -with-trace
-You can use  `dardel.config` if you want to submit jobs on SLURM. Or use the config file of your cluser.  
-`-with-trace` is used if you are interested to know the resources (memory and time) used by each processes within the workflow. The cpu and ram are pre-specified and will retry with higher number of cpu and alloted time if failed. 
+    nextflow run main.nf -profile apptainer,conda -c nextflow.config,dardel.config -resume -with-trace
+You can use  `dardel.config` if you want to submit jobs on SLURM. Or use the config file of your cluser.\
+`-with-trace` is used if you are interested to know the resources (memory and time) used by each processes within the workflow. In the workflow the cpu and ram are pre-specified and will retry with higher number of cpu and alloted time if there is out of memory issues.\
