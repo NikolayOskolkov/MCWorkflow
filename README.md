@@ -23,11 +23,11 @@ Question regarding the nextflow workflow refers to Chenyu.Jin(amend.jin@gmail.co
 
 ## Quick start
 
-Required programs
+Required programs\
 `nextflow`\
 `conda`\
 `singularity` OR `apptainer`\
-`seqkit`\
+`seqkit`
 
 (1) Please clone this repository and install the workflow tools as follows:
 
@@ -39,7 +39,7 @@ Required programs
 After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.gz) in the `pseudo_reads_file_dir` directory, you can then run which might take > 6 hours to obtain the subsetted database:\
 `seqkit split -s 10000000 GTDB_sliced_seqs_sliding_window.fna.gz`
 
-(3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:
+(3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:\
    `input_dir`: the path to the directory with all fasta files (gzipped or not)\
    `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask\
     `pseudo_reads_file_dir`: where it contains all the subsets of sliced GTDB or other databases\
@@ -52,4 +52,4 @@ After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.g
 
     nextflow run main.nf -profile apptainer,conda -c nextflow.config,dardel.config -resume -with-trace
 You can use  `dardel.config` if you want to submit jobs on SLURM. Or use the config file of your cluser.\
-`-with-trace` is used if you are interested to know the resources (memory and time) used by each processes within the workflow. In the workflow the cpu and ram are pre-specified and will retry with higher number of cpu and alloted time if there is out of memory issues.\
+`-with-trace` is used if you are interested to know the resources (memory and time) used by each processes within the workflow. In the workflow the cpu and ram are pre-specified and will retry with higher number of cpu and alloted time if there is out of memory issues.
