@@ -71,13 +71,13 @@ You can use  `dardel.config` if you want to submit jobs on SLURM. Or use the con
 Other outputs to understand which microbes/organisms/contigs matches the masked region on reference genome:
 
 `*coords_micr_contam_*.txt`:
-1) name (id) of the eukaryotic reference genome profiles, \
-2) contig / scaffold / chromosome id within the eukaryotic reference genome containing microvbial-like region,\
-3) start coordinate of the detected microbial-like region,\
-4) end coordinate of the detected microbial-like region,\
-5) genomic length of the microbial-like region,\
-6) total number of reads aligned to the detected microbial-like region,\
-7) average number of reads supporting each position within the detected microbial-like region,\
+1) name (id) of the eukaryotic reference genome profiles, 
+2) contig / scaffold / chromosome id within the eukaryotic reference genome containing microvbial-like region,
+3) start coordinate of the detected microbial-like region,
+4) end coordinate of the detected microbial-like region,
+5) genomic length of the microbial-like region,
+6) total number of reads aligned to the detected microbial-like region,
+7) average number of reads supporting each position within the detected microbial-like region,
 8) the next five columns represent top abundant microbial species for each detected microbial-like region (the number of reads is reported for each of the top abundant microbes); if fewer than five unique microbes are dicovered within the microbial-like region, the rest of the columns contain recods "NA_reads_NA".
 
 ```
