@@ -1,26 +1,18 @@
-# THIS SCRIPT DETECTS REGIONS IN FASTA REFERENCE GENOME COVERED BY EXOGENOUS PSEUDO-READS AND OUTPUTS COORDINATES OF THE REGIONS ANNOTATED WITH THE NAMES OF MOST ABUNDANT EXOGENOUS ORGANISMS
-# THE SCRIPT IS RUN WITHIN THE MICROBIAL CONTAMINATION WORKFLOW AND NEEDS TO BE PLACED IN THE SAME DIRECTORY AS micr_cont_detect.sh MAIN SHELL-SCRIPT AND GTDB_fna2name.txt ANNOTATION FILE
-# THE SCRIPT ACCEPTS BREADTH-OF-COVERAGE (BOC) FILES PRODUCED BY SAMTOOLS DEPTH FROM ALIGNMENTS OF EXOGENOUS PSEUDO-READS TO A REFERENCE GENOME
-# THE R-SCRIPT USES AWK, SAMTOOLS AND OTHER COMMON SHELL-COMMANDS (E.G. SED, CUT, UNIQ ETC.) VIA ITS SYSTEM-FUNCTION, THEY ALL HAVE TO BE INSTALLED AND AVAILABLE IN THE PATH
-# THE GTDB_fna2name.txt ANNOTATION FILE SERVES TO MAP GTDB IDS TO SCIENTIFIC NAMES (ONLY USED WHEN USING GTDB PSEUDO-READS), THE FILE IS PROVIDED TOGETHER WITH THE WORKFLOW
-#
-# RUN THE SCRIPT AS: Rscript extract_coords.R TYPE_OF_PSEUDO_READS
-#
-# WHERE: TYPE_OF_PSEUDO_READS - WHETHER REFSEQ OR GTDB OR HUMAN PSEUDO-READS SHOULD BE USED FOR DETECTION OF EXOGENOUS REGIONS IN THE FASTA REFERENCE GENOME, CAN BE "RefSeq" OR "GTDB" OR "human"
-#
+#!/usr/bin/env Rscript
+
 # FOR EXAMPLE: Rscript extract_coords.R GTDB
 #
 # AUTHOR: NIKOLAY OSKOLKOV, NBIS SCILIFELAB, EMAIL: nikolay.oskolkov@scilifelab.se
 
 args = commandArgs(trailingOnly=TRUE)
 TYPE_OF_PSEUDO_READS<-as.character(args[1])
+myname<-as.character(args[2])#breadth of coverage file
+fna2name<-as.character(args[3])
 
-options(warn=-1)
+options(warn=0) #warnings are printed in error
 
-myname<-list.files(pattern="*.boc$")
 contig<-strsplit(myname,"__")[[1]][1]
 ref<-gsub(".boc","",strsplit(myname,"__")[[1]][2])
-
 v<-as.numeric(readLines(myname))
 r <- rle(v>0)
 start <- cumsum(r$lengths)[r$values] - r$lengths[r$values] + 1
@@ -70,7 +62,7 @@ for(i in 1:dim(output_contig)[1])
 {
 average_depth<-append(average_depth,round(mean(v[output_contig$START[i]:output_contig$END[i]],na.rm=TRUE),0))
 n_reads<-append(n_reads,system(paste0("samtools view PseudoReads_aligned_to_*.bam '",output_contig$CONTIG[i],"':",output_contig$START[i],"-",output_contig$END[i]," | wc -l"),intern=TRUE))
-system("export LC_NUMERIC=en_US.utf-8")
+#system("export LC_NUMERIC=en_US.utf-8")
 micr<-system(paste0("samtools view PseudoReads_aligned_to_*.bam '",output_contig$CONTIG[i],"':",output_contig$START[i],"-",output_contig$END[i]," | cut -f1 | sed 's/fna_/fna%/g' | cut -f1 -d '%' | sort | uniq -c | sort -nr -k1,1 | head -5 | awk '{print $1\"_reads_\"$2}'"),intern=TRUE)
 micr1<-append(micr1,micr[1]); micr2<-append(micr2,micr[2]); micr3<-append(micr3,micr[3]); micr4<-append(micr4,micr[4]); micr5<-append(micr5,micr[5])
 }
@@ -80,7 +72,7 @@ output_contig$AVERAGE_DEPTH<-average_depth
 output_contig$MICR1<-micr1; output_contig$MICR2<-micr2; output_contig$MICR3<-micr3; output_contig$MICR4<-micr4; output_contig$MICR5<-micr5
 output_contig[is.na(output_contig)]<-"NA_reads_NA"
 
-annot<-read.delim("../../GTDB_fna2name.txt",header=FALSE,sep="\t")
+annot<-read.delim(fna2name,header=FALSE,sep="\t")
 
 micr1_sep<-as.data.frame(matrix(unlist(strsplit(as.character(output_contig$MICR1),"_reads_")),ncol=2,byrow=TRUE))
 micr1_sep$V3<-annot$V3[match(as.character(micr1_sep$V2),as.character(annot$V1))]

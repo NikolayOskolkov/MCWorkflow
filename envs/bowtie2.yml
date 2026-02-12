@@ -1,0 +1,7 @@
+name: com_map
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - bowtie2
+  - samtools
