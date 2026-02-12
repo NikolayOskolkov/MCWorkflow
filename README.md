@@ -19,7 +19,7 @@ If you use the workflow for your research, please cite our manuscript:
     GigaScience, Volume 14, 2025, giaf108, https://doi.org/10.1093/gigascience/giaf108
 
 Questions regarding the dataset should be sent to nikolay.oskolkov@scilifelab.se
-Question regarding the nextflow workflow refers to Chenyu.Jin(amend.jin@gmail.com)
+Question regarding the nextflow workflow refers to Chenyu.Jin (amend.jin@gmail.com)
 
 ## Quick start
 
@@ -29,17 +29,17 @@ Required programs\
 `singularity` OR `apptainer`\
 `seqkit`
 
-(1) Please clone this repository and install the workflow tools as follows:
+1) Please clone this repository and install the workflow tools as follows:
 
     git clone https://github.com/NikolayOskolkov/MCWorkflow
     cd MCWorkflow
 
-(2) Now we need to creat a directory of which the path is given to the parameter `pseudo_reads_file_dir` in `nextflow.config`. Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare `https://doi.org/10.17044/scilifelab.28491956`.
+2) Now we need to creat a directory of which the path is given to the parameter `pseudo_reads_file_dir` in `nextflow.config`. Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare `https://doi.org/10.17044/scilifelab.28491956`.
 
 After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.gz) in the `pseudo_reads_file_dir` directory, you can then run which might take > 6 hours to obtain the subsetted database:\
 `seqkit split -s 10000000 GTDB_sliced_seqs_sliding_window.fna.gz`
 
-(3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:\
+3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:\
    `input_dir`: the path to the directory with all fasta files (gzipped or not)\
    `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask\
     `pseudo_reads_file_dir`: where it contains all the subsets of sliced GTDB or other databases\
@@ -48,7 +48,7 @@ After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.g
     `work_dir`: where your MCWorkflow directory is\
     `fna2name`: the contig to species name correspondance file. It's GTDB_fna2name.txt for GTDB.\
 
-(4) Then you can run the workflow as:
+4) Then you can run the workflow as:
 
     nextflow run main.nf -profile apptainer,conda -c nextflow.config,dardel.config -resume -with-trace
 You can use  `dardel.config` if you want to submit jobs on SLURM. Or use the config file of your cluser.\
@@ -71,14 +71,14 @@ You can use  `dardel.config` if you want to submit jobs on SLURM. Or use the con
 Other outputs to understand which microbes/organisms/contigs matches the masked region on reference genome:
 
 `*coords_micr_contam_*.txt`:
-1) name (id) of the eukaryotic reference genome profiles, 
-2) contig / scaffold / chromosome id within the eukaryotic reference genome containing microvbial-like region,
-3) start coordinate of the detected microbial-like region,
-4) end coordinate of the detected microbial-like region,
-5) genomic length of the microbial-like region,
-6) total number of reads aligned to the detected microbial-like region,
-7) average number of reads supporting each position within the detected microbial-like region,
-8) the next five columns represent top abundant microbial species for each detected microbial-like region (the number of reads is reported for each of the top abundant microbes); if fewer than five unique microbes are dicovered within the microbial-like region, the rest of the columns contain recods "NA_reads_NA".
+(1) name (id) of the eukaryotic reference genome profiles, 
+(2) contig / scaffold / chromosome id within the eukaryotic reference genome containing microvbial-like region,
+(3) start coordinate of the detected microbial-like region,
+(4) end coordinate of the detected microbial-like region,
+(5) genomic length of the microbial-like region,
+(6) total number of reads aligned to the detected microbial-like region,
+(7) average number of reads supporting each position within the detected microbial-like region,
+(8) the next five columns represent top abundant microbial species for each detected microbial-like region (the number of reads is reported for each of the top abundant microbes); if fewer than five unique microbes are dicovered within the microbial-like region, the rest of the columns contain recods "NA_reads_NA".
 
 ```
 *coords_micr_contam*.txt:
