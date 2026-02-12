@@ -31,9 +31,10 @@ Required programs\
 
 1) Please clone this repository and install the workflow tools as follows:
 
+```
     git clone https://github.com/NikolayOskolkov/MCWorkflow
     cd MCWorkflow
-
+```
 2) Now we need to creat a directory of which the path is given to the parameter `pseudo_reads_file_dir` in `nextflow.config`. Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare `https://doi.org/10.17044/scilifelab.28491956`.
 
 After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.gz) in the `pseudo_reads_file_dir` directory, you can then run which might take > 6 hours to obtain the subsetted database:\
