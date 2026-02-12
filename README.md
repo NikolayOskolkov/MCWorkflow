@@ -56,21 +56,29 @@ You can use  `dardel.config` if you want to submit jobs on SLURM. Or use the con
 
 ## Interepreting results
 
+```
+-rw-r--r-- 1 A B     55 Feb 12 14:07 mito.subset_GTDB_contigs_abund_sorted_GTDB_mito.subset.txt
+-rw-r--r-- 1 A B     82 Feb 12 14:07 mito.subset_GTDB_contigs_boc_sorted_GTDB_mito.subset.txt
+-rw-r--r-- 1 A B    270 Feb 12 14:07 mito.subset_GTDB_coords_micr_like_regions_mito.subset.bed
+-rw-r--r-- 1 A B   1152 Feb 12 14:07 mito.subset_GTDB_coords_micr_like_regions_mito.subset.txt
+-rw-r--r-- 1 A B    828 Feb 12 14:07 mito.subset_GTDB_microbes_abundant_GTDB_mito.subset.txt
+-rw-r--r-- 1 A B 234066 Feb 12 14:22 mito.subset.masked.fna
+```
 
--rw-r--r-- 1 chenjin pg_snic2022-6-144     55 Feb 12 14:07 mito.subset_GTDB_contigs_abund_sorted_GTDB_mito.subset.txt
--rw-r--r-- 1 chenjin pg_snic2022-6-144     82 Feb 12 14:07 mito.subset_GTDB_contigs_boc_sorted_GTDB_mito.subset.txt
--rw-r--r-- 1 chenjin pg_snic2022-6-144    270 Feb 12 14:07 mito.subset_GTDB_coords_micr_like_regions_mito.subset.bed
--rw-r--r-- 1 chenjin pg_snic2022-6-144   1152 Feb 12 14:07 mito.subset_GTDB_coords_micr_like_regions_mito.subset.txt
--rw-r--r-- 1 chenjin pg_snic2022-6-144    828 Feb 12 14:07 mito.subset_GTDB_microbes_abundant_GTDB_mito.subset.txt
--rw-r--r-- 1 chenjin pg_snic2022-6-144 234066 Feb 12 14:22 mito.subset.masked.fna
-
-The major file is `*.bed` which contains the regions to mask, and the *.fna file as the masked reference genome.
+### The major file is `*.bed` which contains the regions to mask, and the `*.masked.fna` file as the masked reference genome.
 
 
 Other outputs to understand which microbes/organisms/contigs matches the masked region on reference genome:
 
 `*coords_micr_contam_*.txt`:
-1) name (id) of the eukaryotic reference genome profiles, 2) contig / scaffold / chromosome id within the eukaryotic reference genome containing microvbial-like region, 3) start coordinate of the detected microbial-like region, 4) end coordinate of the detected microbial-like region, 5) genomic length of the microbial-like region, 6) total number of reads aligned to the detected microbial-like region, 7) average number of reads supporting each position within the detected microbial-like region, 8) the next five columns represent top abundant microbial species for each detected microbial-like region (the number of reads is reported for each of the top abundant microbes); if fewer than five unique microbes are dicovered within the microbial-like region, the rest of the columns contain recods "NA_reads_NA".
+1) name (id) of the eukaryotic reference genome profiles, \
+2) contig / scaffold / chromosome id within the eukaryotic reference genome containing microvbial-like region,\
+3) start coordinate of the detected microbial-like region,\
+4) end coordinate of the detected microbial-like region,\
+5) genomic length of the microbial-like region,\
+6) total number of reads aligned to the detected microbial-like region,\
+7) average number of reads supporting each position within the detected microbial-like region,\
+8) the next five columns represent top abundant microbial species for each detected microbial-like region (the number of reads is reported for each of the top abundant microbes); if fewer than five unique microbes are dicovered within the microbial-like region, the rest of the columns contain recods "NA_reads_NA".
 
 ```
 *coords_micr_contam*.txt:
