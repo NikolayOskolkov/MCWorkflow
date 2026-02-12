@@ -24,10 +24,10 @@ Question regarding the nextflow workflow refers to Chenyu.Jin(amend.jin@gmail.co
 ## Quick start
 
 Required programs
-`nextflow`
-`conda`
-`singularity/apptainer`
-`seqkit`
+`nextflow`\
+`conda`\
+`singularity` OR `apptainer`\
+`seqkit`\
 
 (1) Please clone this repository and install the workflow tools as follows:
 
