@@ -40,6 +40,16 @@ Required programs\
 After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.gz) in the `pseudo_reads_file_dir` directory, you can then run which might take > 6 hours to obtain the subsetted database:\
 `seqkit split -s 10000000 GTDB_sliced_seqs_sliding_window.fna.gz`
 
+and it shall generate subset files in the `pseudo_reads_file_dir` directory:
+```
+$ ls -l
+total 314676
+-rw-r--r-- 1 A B 106803787 Feb  6 14:56 GTDB_sliced_seqs_sliding_window.part_001.fna.gz
+-rw-r--r-- 1 A B 107659656 Feb  6 14:56 GTDB_sliced_seqs_sliding_window.part_002.fna.gz
+-rw-r--r-- 1 A B 107748293 Feb  6 14:56 GTDB_sliced_seqs_sliding_window.part_003.fna.gz
+...
+```
+
 3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:\
    `input_dir`: the path to the directory with all fasta files (gzipped or not)\
    `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask\
