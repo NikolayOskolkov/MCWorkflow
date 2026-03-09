@@ -51,7 +51,7 @@ total 314676
 ```
 
 3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:\
-   `input_dir`: the path to the directory with all fasta files (gzipped or not)\
+   `input_dir`: the path to the directory with all fasta files (gzipped or not). Soft link to files in this dir will also be included.\
    AND/OR use `input_list`: the path to the list with each line as the absolute path to each fasta. If you input both, the unique union of both sets will be processed.\
    `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask\
     `pseudo_reads_file_dir`: where it contains all the subsets of sliced GTDB or other databases\
