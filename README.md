@@ -29,7 +29,7 @@ Required programs\
 `singularity` OR `apptainer`\
 `seqkit`
 
-if you use mamba for conda instead of miniconda, please replace the block of code in nextflow.config
+if you use mamba for conda instead of miniconda, please replace the block of code in `nextflow.config`
 ```
     conda {
     conda.enabled = true
