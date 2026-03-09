@@ -40,7 +40,7 @@ workflow {
     }
     
     input1.concat(input2).unique().set{files}
-    files.view()
+    // files.view()
 
     index_reference(files)
     
