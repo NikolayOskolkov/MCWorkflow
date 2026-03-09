@@ -12,18 +12,35 @@ workflow {
 
     output_dir = Channel.fromPath(params.output_dir)
 
-    files = Channel.fromPath("${params.input_dir}/*.{fna,fa,fasta}{,.gz}")
-    .ifEmpty {
-        log.error "No input files (.fna, .fa, .fasta, optionally .gz) found in ${params.input_dir}"
-        System.exit(1)
+    input1 = Channel.empty()
+    if (params.input_dir != ""){
+        files = Channel.fromPath("${params.input_dir}/*.{fna,fa,fasta}{,.gz}")
+        .ifEmpty {
+            log.error "No input files (.fna, .fa, .fasta, optionally .gz) found in ${params.input_dir}"
+            System.exit(1)
+        }
+        .map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
+        // .view()
     }
-    .map { f ->
-        tuple(
-            f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),
-            f
-            )
+
+    input2 = Channel.empty()
+    if (params.input_list != ""){
+        input2 = Channel
+        .fromPath(params.input_list)
+        .splitText()
+        .map { it.trim() }
+        .filter { it }
+        .map { f ->file(f)}
+        .ifEmpty {
+            log.error "No input files (.fna, .fa, .fasta, optionally .gz) found in ${params.input_dir}"
+            System.exit(1)
+        }
+        .map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
+        // .view()
     }
-    .view()
+    
+    input1.concat(input2).unique().set{files}
+    files.view()
 
     index_reference(files)
     
