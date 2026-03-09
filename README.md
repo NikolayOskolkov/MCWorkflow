@@ -51,7 +51,7 @@ total 314676
 ```
 
 3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:\
-   `input_dir`: the path to the directory with all fasta files (gzipped or not)\
+   `input_dir`: the path to the directory with all fasta files (gzipped or not), AND/OR use `input_list`: the path to the list with each line as the absolute path to each fasta. If you input both, the unique union of both sets will be processed.
    `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask\
     `pseudo_reads_file_dir`: where it contains all the subsets of sliced GTDB or other databases\
     `n_allowed_multimappers`: the number of allowed multimapper. Based on the test done in the paper, 10 is recommended.\
@@ -59,7 +59,7 @@ total 314676
     `work_dir`: where your MCWorkflow directory is\
     `fna2name`: the contig to species name correspondance file. It's GTDB_fna2name.txt for GTDB.\
 
-4) Then you can run the workflow as:
+5) Then you can run the workflow as:
 
     nextflow run main.nf -profile apptainer,conda -c nextflow.config,dardel_cluster.config` -resume -with-trace
 You can use  `dardel_cluster.config` if you want to submit jobs on SLURM. Or use the config file of your cluster (taking dardel as an example). Don't forget to change the project account in your HPC cluster:\
