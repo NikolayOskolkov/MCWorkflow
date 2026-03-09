@@ -25,9 +25,23 @@ Question regarding the nextflow workflow refers to Chenyu.Jin (amend.jin@gmail.c
 
 Required programs\
 `nextflow`\
-`conda`\
+`conda` (e.g., miniconda3)\
 `singularity` OR `apptainer`\
 `seqkit`
+
+if you use mamba for conda instead of miniconda, please replace the block of code in nextflow.config
+```
+    conda {
+    conda.enabled = true
+    }
+```
+with
+
+```
+conda {
+    useMamba = true
+}
+```
 
 1) Please clone this repository and install the workflow tools as follows:
 
