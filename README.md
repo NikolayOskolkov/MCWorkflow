@@ -61,8 +61,13 @@ total 314676
 
 4) Then you can run the workflow as:
 
-    nextflow run main.nf -profile apptainer,conda -c nextflow.config,dardel.config -resume -with-trace
-You can use  `dardel.config` if you want to submit jobs on SLURM. Or use the config file of your cluser.\
+    nextflow run main.nf -profile apptainer,conda -c nextflow.config,dardel_cluster.config` -resume -with-trace
+You can use  `dardel_cluster.config` if you want to submit jobs on SLURM. Or use the config file of your cluster (taking dardel as an example). Don't forget to change the project account in your HPC cluster:\
+```
+params {
+    project                    = "naiss2025-xx-xxx" // Naiss project allocation
+```
+
 `-with-trace` is used if you are interested to know the resources (memory and time) used by each processes within the workflow. In the workflow the cpu and ram are pre-specified and will retry with higher number of cpu and alloted time if there is out of memory issues.
 
 ## Interepreting results
