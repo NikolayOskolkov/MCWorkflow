@@ -78,17 +78,8 @@ process index_reference {
     cpus { 40 * task.attempt }
     memory { 32.GB * task.attempt }
     time { 1.hour * task.attempt }
-        
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        // - represent external termination due to time limit
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
 
+	errorStrategy = { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
 
     input:
     tuple val(ID), path(input_ref)
@@ -110,14 +101,7 @@ process align_pseudo_reads {
     memory { 8.GB * task.attempt }
     time { 30.m * task.attempt }
 
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
+	errorStrategy = { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
 
     input:
     tuple val(ID), path(index), path(input_pseudo_reads), val(type_of_pseudo_reads), val(n_allowed_multimappers)
@@ -150,14 +134,7 @@ process merge_bam {
     memory { 20.GB * task.attempt }
     time { 1.hour * task.attempt }
 
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
+	errorStrategy = { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
     
     conda './envs/bowtie2.yml'
     input:
@@ -198,14 +175,7 @@ process detect_exogenous {
   memory { 15.GB * task.attempt }
   time { 4.hour * task.attempt }
 
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
+  errorStrategy = { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
 
   container 'docker://quay.io/biocontainers/mulled-v2-0697a5880de9863c66cba89c8310687052a940fc:c72ea422cf70582757ae5648f79b19857320259b-0'
 
@@ -260,14 +230,7 @@ process make_bedfile {
   memory { 0.8.GB * task.attempt }
   time { 20.m * task.attempt }
 
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
+  errorStrategy = { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
 
   input: 
     tuple val(ID), path(raw_bed)
@@ -293,14 +256,7 @@ process mask_fasta {
   memory { 0.8.GB * task.attempt }
   time { 20.m * task.attempt }
 
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
+  errorStrategy = { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
 
   input: 
   tuple val(ID), path(bed), path(ref)
