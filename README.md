@@ -76,7 +76,7 @@ total 314676
 
 5) Then you can run the workflow as:
 
-    nextflow run main.nf -profile apptainer,conda -c nextflow.config,dardel_cluster.config` -resume -with-trace
+    `nextflow run main.nf -profile apptainer,conda -c nextflow.config,dardel_cluster.config` -resume -with-trace
 You can use  `dardel_cluster.config` if you want to submit jobs on SLURM. Or use the config file of your cluster (taking dardel as an example). Don't forget to change the project account in your HPC cluster:\
 ```
 params {
