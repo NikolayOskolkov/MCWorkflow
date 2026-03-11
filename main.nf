@@ -79,7 +79,8 @@ process index_reference {
     memory { 32.GB * task.attempt }
     time { 1.hour * task.attempt }
 
-	errorStrategy = { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
+	errorStrategy { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
+	maxRetries 9
 
     input:
     tuple val(ID), path(input_ref)
@@ -102,6 +103,7 @@ process align_pseudo_reads {
     time { 30.m * task.attempt }
 
 	errorStrategy = { task.exitStatus in [143,137,104,134,139, 140] ? 'retry' : 'finish' }
+	maxRetries 17
 
     input:
     tuple val(ID), path(index), path(input_pseudo_reads), val(type_of_pseudo_reads), val(n_allowed_multimappers)
