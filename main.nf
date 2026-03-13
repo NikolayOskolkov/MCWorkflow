@@ -12,35 +12,18 @@ workflow {
 
     output_dir = Channel.fromPath(params.output_dir)
 
-    input1 = Channel.empty()
-    if (params.input_dir != ""){
-        files = Channel.fromPath("${params.input_dir}/*.{fna,fa,fasta}{,.gz}")
-        .ifEmpty {
-            log.error "No input files (.fna, .fa, .fasta, optionally .gz) found in ${params.input_dir}"
-            System.exit(1)
-        }
-        .map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
-        // .view()
+    files = Channel.fromPath("${params.input_dir}/*.{fna,fa,fasta}{,.gz}")
+    .ifEmpty {
+        log.error "No input files (.fna, .fa, .fasta, optionally .gz) found in ${params.input_dir}"
+        System.exit(1)
     }
-
-    input2 = Channel.empty()
-    if (params.input_list != ""){
-        input2 = Channel
-        .fromPath(params.input_list)
-        .splitText()
-        .map { it.trim() }
-        .filter { it }
-        .map { f ->file(f)}
-        .ifEmpty {
-            log.error "No input files (.fna, .fa, .fasta, optionally .gz) found in ${params.input_dir}"
-            System.exit(1)
-        }
-        .map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
-        // .view()
+    .map { f ->
+        tuple(
+            f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),
+            f
+            )
     }
-    
-    input1.concat(input2).unique().set{files}
-    files.view()
+    //.view()
 
     index_reference(files)
     
@@ -50,7 +33,7 @@ workflow {
                 .map{it -> it.flatten()}
                 .map{it -> tuple(it[0], tuple(it[1],it[2],it[3],it[4],it[5],it[6]),it[7], params.type_of_pseudo_reads, params.n_allowed_multimappers)}
 
-    input_for_align.view()
+    //input_for_align.view()
 
     align_pseudo_reads(input_for_align)
 
@@ -75,21 +58,6 @@ workflow {
 process index_reference {
     conda './envs/bowtie2.yml'
 
-    cpus { 40 * task.attempt }
-    memory { 32.GB * task.attempt }
-    time { 1.hour * task.attempt }
-        
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        // - represent external termination due to time limit
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
-
-
     input:
     tuple val(ID), path(input_ref)
 
@@ -105,19 +73,6 @@ process index_reference {
 // Process 2: Alignment
 process align_pseudo_reads {
     conda './envs/bowtie2.yml'
-
-    cpus { 10 * task.attempt }
-    memory { 8.GB * task.attempt }
-    time { 30.m * task.attempt }
-
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
 
     input:
     tuple val(ID), path(index), path(input_pseudo_reads), val(type_of_pseudo_reads), val(n_allowed_multimappers)
@@ -145,19 +100,6 @@ process align_pseudo_reads {
 
 // merge bam of same sample mapped to different databases
 process merge_bam {
-
-    cpus { 25 * task.attempt }
-    memory { 20.GB * task.attempt }
-    time { 1.hour * task.attempt }
-
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
     
     conda './envs/bowtie2.yml'
     input:
@@ -193,19 +135,6 @@ process detect_exogenous {
 
   publishDir params.output_dir, 
         mode: "copy"
-
-  cpus { 20 * task.attempt }
-  memory { 15.GB * task.attempt }
-  time { 4.hour * task.attempt }
-
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
 
   container 'docker://quay.io/biocontainers/mulled-v2-0697a5880de9863c66cba89c8310687052a940fc:c72ea422cf70582757ae5648f79b19857320259b-0'
 
@@ -256,19 +185,6 @@ process make_bedfile {
 
   publishDir params.output_dir, mode: "copy"
 
-  cpus { 1 * task.attempt }
-  memory { 0.8.GB * task.attempt }
-  time { 20.m * task.attempt }
-
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
-
   input: 
     tuple val(ID), path(raw_bed)
 
@@ -288,20 +204,7 @@ process mask_fasta {
   conda 'bioconda::bedtools'
 
   publishDir params.output_dir, mode: "copy"
-
-  cpus { 1 * task.attempt }
-  memory { 0.8.GB * task.attempt }
-  time { 20.m * task.attempt }
-
-    errorStrategy {
-    if( task.exitStatus == null || task.exitStatus in 137..140 || task.exitStatus == 143 ) {
-        return task.attempt <= 6 ? 'retry' : 'terminate'
-    }
-    else {
-        return 'terminate'
-    }
-    }
-
+  
   input: 
   tuple val(ID), path(bed), path(ref)
 
