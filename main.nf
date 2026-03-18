@@ -175,6 +175,7 @@ process detect_exogenous {
 
   #add prefix
   for f in \$(ls * | grep -v .bam); do
+	[[ "\$f" == *.bam ]] && continue
     mv "\$f" "${input_ref}_${type_of_pseudo_reads}_\$f"
   done
 
