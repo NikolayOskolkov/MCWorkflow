@@ -4,10 +4,12 @@ nextflow.enable.dsl=2
 // Define absolute paths to pseudo-reads and annotation
 workflow {
 
-    pseudo_reads_file = Channel.fromPath("${params.pseudo_reads_file_dir}/*.{fna,fa,fasta}{,.gz}")
-    .ifEmpty {
-        log.error "No input files found in ${params.pseudo_reads_file_dir}"
-        System.exit(1)
+    // Assemblies are in a directory
+    assemblies_from_directory = channel.empty()
+    if ( params.genomes_directory ){
+        channel.fromPath("${params.genomes_directory}/*.{fna,fa,fasta}{,.gz}", checkIfExists: true)
+        .map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
+        .set { assemblies_from_directory }
     }
 
 	input1 = Channel.empty()
