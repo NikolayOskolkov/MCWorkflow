@@ -1,0 +1,16 @@
+# Nextflow
+work/
+.nextflow*
+
+# User
+results/
+local_files/
+slurm-*.out
+
+# Other
+.DS_Store
+.vscode/
+
+# Pixi
+.pixi/*
+!.pixi/config.toml
