@@ -70,7 +70,7 @@ total 314676
    `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask\
     `pseudo_reads_file_dir`: where it contains all the subsets of sliced GTDB or other databases\
     `n_allowed_multimappers`: the number of allowed multimapper. Based on the test done in the paper, 10 is recommended.\
-    `output_dir`: the path to the directory where you want all the outputs \
+    `outdir`: the path to the directory where you want all the outputs \
     `work_dir`: where your MCWorkflow directory is\
     `fna2name`: the contig to species name correspondance file. It's GTDB_fna2name.txt for GTDB.\
 

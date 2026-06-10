@@ -10,8 +10,6 @@ workflow {
         System.exit(1)
     }
 
-    output_dir = Channel.fromPath(params.output_dir)
-
 	input1 = Channel.empty()
 	if (params.input_dir != ""){
 		files = Channel.fromPath("${params.input_dir}/*.{fna,fa,fasta}{,.gz}")
@@ -150,8 +148,7 @@ process merge_bam {
 // Process 3: Detection
 process detect_exogenous {
 
-  publishDir params.output_dir, 
-        mode: "copy"
+  publishDir params.outdir, mode: "copy"
 
   container 'docker://quay.io/biocontainers/mulled-v2-0697a5880de9863c66cba89c8310687052a940fc:c72ea422cf70582757ae5648f79b19857320259b-0'
 
@@ -201,7 +198,7 @@ process detect_exogenous {
 
 process make_bedfile {
 
-  publishDir params.output_dir, mode: "copy"
+  publishDir params.outdir, mode: "copy"
 
   input: 
     tuple val(ID), path(raw_bed)
@@ -224,7 +221,7 @@ process mask_fasta {
 
   conda 'bioconda::bedtools'
 
-  publishDir params.output_dir, mode: "copy"
+  publishDir params.outdir, mode: "copy"
   
   input: 
   tuple val(ID), path(bed), path(ref)
