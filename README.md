@@ -49,12 +49,12 @@ conda {
     git clone https://github.com/NikolayOskolkov/MCWorkflow
     cd MCWorkflow
 ```
-2) Now we need to creat a directory of which the path is given to the parameter `pseudo_reads_file_dir` in `nextflow.config`. Please note that in this gitub reporsitory, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare `https://doi.org/10.17044/scilifelab.28491956`.
+2) Now we need to create a directory of which the path is given to the parameter `pseudo_reads_directory` in `nextflow.config`. Please note that in this github repository, we provide a small subset of microbial pseudo-reads for demonstration purposes, the full dataset is available at the SciLifeLab Figshare `https://doi.org/10.17044/scilifelab.28491956`.
 
-After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.gz) in the `pseudo_reads_file_dir` directory, you can then run which might take > 6 hours to obtain the subsetted database:\
+After downloading the needed fna.gz (e.g., GTDB_sliced_seqs_sliding_window.fna.gz) in the `pseudo_reads_directory` directory, you can then run which might take > 6 hours to obtain the subsetted database:\
 `seqkit split -s 100000000 GTDB_sliced_seqs_sliding_window.fna.gz`
 
-and it shall generate subset files in the `pseudo_reads_file_dir` directory:
+and it shall generate subset files in the `pseudo_reads_directory` directory:
 ```
 $ ls -l
 total 314676
@@ -65,13 +65,12 @@ total 314676
 ```
 
 3) All inputs are specified in `nextflow.config`. To `nextflow run`, you first need to modify:\
-   `input_dir`: the path to the directory with all fasta files (gzipped or not). Soft link to files in this dir will also be included.\
-   AND/OR use `input_list`: the path to the list with each line as the absolute path to each fasta. If you input both, the unique union of both sets will be processed.\
+   `genomes_directory`: the path to the directory with all fasta files (gzipped or not). Soft link to files in this dir will also be included.\
+   AND/OR use `genome`: the path to a single fasta. If you input both, the unique union of both sets will be processed.\
    `type_of_pseudo_reads`: "GTDB" # or "RefSeq", "human" depends on which database you want to use to mask\
-    `pseudo_reads_file_dir`: where it contains all the subsets of sliced GTDB or other databases\
+    `pseudo_reads_directory`: where it contains all the subsets of sliced GTDB or other databases\
     `n_allowed_multimappers`: the number of allowed multimapper. Based on the test done in the paper, 10 is recommended.\
     `outdir`: the path to the directory where you want all the outputs \
-    `work_dir`: where your MCWorkflow directory is\
     `fna2name`: the contig to species name correspondance file. It's GTDB_fna2name.txt for GTDB.\
 
 5) Then you can run the workflow as:

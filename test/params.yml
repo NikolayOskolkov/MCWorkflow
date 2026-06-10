@@ -1,0 +1,4 @@
+#genomes_directory      : "./test/data/assemblies"
+genome                 : "./test/data/assemblies/GCA_002220235.fna.gz"
+pseudo_reads_directory : "./test/data/pseudo_reads_files"
+tracing                : true
