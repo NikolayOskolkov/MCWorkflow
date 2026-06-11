@@ -1,238 +1,89 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
+
+// Imports
+include { BOWTIE2_BUILD      } from './modules/nf-core/bowtie2/build/main'
+include { ALIGN_PSEUDO_READS } from './modules/local/bowtie2/align/main'
+include { MERGE_BAM          } from './modules/local/merge_bams/main'
+include { DETECT_EXOGENOUS   } from './modules/local/detect_exogenous/main'
+include { MAKE_BEDFILE       } from './modules/local/make_bedfile/main'
 
 // Define absolute paths to pseudo-reads and annotation
 workflow {
 
-    pseudo_reads_file = Channel.fromPath("${params.pseudo_reads_file_dir}/*.{fna,fa,fasta}{,.gz}")
-    .ifEmpty {
-        log.error "No input files found in ${params.pseudo_reads_file_dir}"
-        System.exit(1)
+    // Assemblies are in a directory
+    assemblies_from_directory = channel.empty()
+    if ( params.genomes_directory ){
+        channel.fromPath("${params.genomes_directory}/*.{fna,fa,fasta}{,.gz}", checkIfExists: true)
+        .map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
+        .set { assemblies_from_directory }
     }
 
-    output_dir = Channel.fromPath(params.output_dir)
+    // Assembly from a path
+    assembly_from_path = channel.empty()
+    if ( params.genome ){
+        channel.fromPath(params.genome, checkIfExists: true)
+        .map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
+        .set { assembly_from_path }
+    }
 
-	input1 = Channel.empty()
-	if (params.input_dir != ""){
-		files = Channel.fromPath("${params.input_dir}/*.{fna,fa,fasta}{,.gz}")
-		.ifEmpty {
-			log.error "No input files (.fna, .fa, .fasta, optionally .gz) found in ${params.input_dir}"
-			System.exit(1)
-		}
-		.map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
-		// .view()
-	}
-	
-	input2 = Channel.empty()
-	if (params.input_list != ""){
-		input2 = Channel
-		.fromPath(params.input_list)
-		.splitText()
-		.map { it.trim() }
-		.filter { it }
-		.map { f ->file(f)}
-		.ifEmpty {
-			log.error "No input files (.fna, .fa, .fasta, optionally .gz) found in ${params.input_dir}"
-			System.exit(1)
-		}
-		.map { f ->tuple(f.baseName.replaceFirst(/(\.fna|\.fa|\.fasta)(\.gz)?$/, ''),f)}
-		// .view()
-	}
-	
-	input1.concat(input2).unique().set{files}
-	//files.view()
+    // Mix
+    assemblies_from_directory
+        .mix( assembly_from_path )
+        .unique()
+        .set { assemblies_to_mask }
 
-    index_reference(files)
-    
-    input_for_align = index_reference.out
-     			.combine(pseudo_reads_file)
-     			.map{it -> tuple(it, params.type_of_pseudo_reads, params.n_allowed_multimappers)}
-                .map{it -> it.flatten()}
-                .map{it -> tuple(it[0], tuple(it[1],it[2],it[3],it[4],it[5],it[6]),it[7], params.type_of_pseudo_reads, params.n_allowed_multimappers)}
+    // Pseudo-reads from directory
+    if ( params.pseudo_reads_directory ){
+        channel.fromPath("${params.pseudo_reads_directory}/*.{fna,fa,fasta}{,.gz}", checkIfExists: true)
+        .set { pseudo_reads }
+    }
 
-    //input_for_align.view()
+    // Contig to species name file
+    fna2name = channel.empty()
+    if ( params.fna2name ){
+        channel.fromPath(params.fna2name, checkIfExists: true)
+        .set { fna2name }
+    }
 
-    align_pseudo_reads(input_for_align)
+    // Create bowtie2 index for each assembly
+    BOWTIE2_BUILD (
+        assemblies_to_mask
+    )
 
-    merge_bam(align_pseudo_reads.out.groupTuple())
-
-    merge_bam.out
-    .map{it -> tuple(it, params.type_of_pseudo_reads, params.work_dir, params.fna2name)}
-    .map{it -> it.flatten()}
-    .set{  detect_input }
-
-    // detect_exogenous(align_pseudo_reads.out.bam, align_pseudo_reads.out.ref, params.type_of_pseudo_reads, params.work_dir, params.fna2name)
-    detect_exogenous(detect_input)
-
-    make_bedfile(detect_exogenous.out.for_bedfile)
-
-    make_bedfile.out.combine( files, by:0 ).view()
-    // mask_fasta(make_bedfile.out.combine( files,by:0 ))
-
-}
-
-// Process 1: Indexing
-process index_reference {
-    conda './envs/bowtie2.yml'
-
-    input:
-    tuple val(ID), path(input_ref)
-
-    output:
-    tuple val(ID), path("*.bt2l")
-
-    script:
-    """
-    bowtie2-build --large-index \$(basename ${input_ref}) \$(basename ${input_ref}) --threads "${task.cpus}"
-    """
-}
-
-// Process 2: Alignment
-process align_pseudo_reads {
-    conda './envs/bowtie2.yml'
-
-    input:
-    tuple val(ID), path(index), path(input_pseudo_reads), val(type_of_pseudo_reads), val(n_allowed_multimappers)
-
-    output:
-    tuple val(ID), path("*.bam")
-
-    script:
-    """
-    index1=\$(printf '%s\n' *.bt2* | head -n1)
-    ref_name=\$(echo \$index1 | sed 's/.1.bt2l//' | sed 's/.1.bt2//')
-
-    input_pseudo_reads_name=\$(basename "$input_pseudo_reads" | sed -E 's/\\.(fna|fa|fasta)(\\.gz)?\$//')
-
-    bowtie2 --large-index -f -k ${n_allowed_multimappers} -x \${ref_name} \
-        --end-to-end --quiet --threads "${task.cpus}" --very-sensitive \
-        -U ${input_pseudo_reads} | \
-        samtools view -bS -F 4 -h -@ "${task.cpus}" - | \
-        samtools sort -@ "${task.cpus}" - > PseudoReads_aligned_to_\${input_pseudo_reads_name}.bam
-    
-    input_ref_name=\$(echo \$index1 | sed 's/.1.bt2l//' | sed -E 's/.fasta|.fa|.fna//' | sed 's/.gz//')
-    """
-}
-
-
-// merge bam of same sample mapped to different databases
-process merge_bam {
-    
-    conda './envs/bowtie2.yml'
-    input:
-        tuple val(ID), path(bams)
-
-    output:
-        tuple val(ID), path("*_merged.sorted.bam"), path("*.bam.csi")
-
-    script:
-    """
-        #filtering out unmapped reads in case it's not done for input bam
-        for bam1 in *.bam; do
-            [[ "\$bam1" == *mapped.bam ]] && continue
-            samtools view -@ "${task.cpus}" -b -F 0x4 "\$bam1" -o "\$(basename \$bam1 .bam).mapped.bam"
-        done
-    
-        samtools merge ${ID}.merged.bam *.mapped.bam
-
-        samtools quickcheck ${ID}.merged.bam || {
-            echo "ERROR: Merging is not successful: ${ID}.merged.bam" >&2
-            exit 1
+    // Prepare alignment input channel
+    BOWTIE2_BUILD.out.index
+        .combine( pseudo_reads )
+        .map { id, index, reads ->
+            [ id, index, reads, params.type_of_pseudo_reads, params.n_allowed_multimappers ]
         }
+        .set { input_for_align }
 
-        samtools sort -@ "${task.cpus}" -o ${ID}_merged.sorted.bam ${ID}.merged.bam
+    // Run alignment
+    ALIGN_PSEUDO_READS (
+        input_for_align
+    )
 
-        samtools index -c ${ID}_merged.sorted.bam
-    """
-}
+    // Merge BAMs
+    MERGE_BAM (
+        ALIGN_PSEUDO_READS.out
+        .groupTuple()
+    )
 
+    // Combine with fna2name
+    MERGE_BAM.out.map { meta, bam, index ->
+        [ meta, bam, index, params.type_of_pseudo_reads ]
+    }
+    .combine( fna2name )
+    .set { detect_input }
 
-// Process 3: Detection
-process detect_exogenous {
+    // Run the detect exogenous scripts
+    DETECT_EXOGENOUS(
+        detect_input
+    )
 
-  publishDir params.output_dir, 
-        mode: "copy"
+    // Create bedfiles
+    MAKE_BEDFILE(
+        DETECT_EXOGENOUS.out.for_bedfile
+    )
 
-  container 'docker://quay.io/biocontainers/mulled-v2-0697a5880de9863c66cba89c8310687052a940fc:c72ea422cf70582757ae5648f79b19857320259b-0'
-
-  input:
-    tuple val(input_ref), path(bam), path(bai), val(type_of_pseudo_reads), val(work_dir), path(fna2name)
-
-  output:
-    path("*abund_*.txt")
-    tuple val(input_ref), path("*coords_micr_like_regions*.txt"), emit: for_bedfile
-    path("*boc_*.txt")
-    path("*_microbes_abundant_*.txt")
-    
-    
-
-  script:
-  """
-  #get just bam
-  bamfile=\$(echo $bam | awk '{print \$1}' )
-
-  detect_exogenous.sh \
-      \${bamfile} \
-      ${input_ref} \
-      ${type_of_pseudo_reads} \
-      ${work_dir}
-
-  echo "GENERATE COORDINATIONS OF MICROBIAL-LIKE REGIONS (BEDFILES)"
-  for j in \$(cat refs_uniq_sorted.txt)
-	do
-	echo \${j} CONTIG OF ${input_ref}
-	extract_coords.R ${type_of_pseudo_reads} \${j}__${input_ref}.boc $fna2name
-	echo DELETING BAM AND COMPRESSING BOC FILES
-	rm \${j}.bam
-	rm \${j}__${input_ref}.boc
-  done
-  #remove intermediate files
-  rm refs_uniq_sorted.txt refs_uniq_sorted_reads.txt total_length_per_ref.txt boc_per_ref.txt
-  rm $fna2name #avoid output it
-
-  #add prefix
-  for f in \$(ls * | grep -v .bam); do
-	[[ "\$f" == *.bam ]] && continue
-    mv "\$f" "${input_ref}_${type_of_pseudo_reads}_\$f"
-  done
-
-  """
-}
-
-process make_bedfile {
-
-  publishDir params.output_dir, mode: "copy"
-
-  input: 
-    tuple val(ID), path(raw_bed)
-
-  output: 
-    tuple val(ID), path("*.bed")
-
-  script:
-  """
-  out=\$(basename "$raw_bed" .txt).bed
-  cut -f 2,3,4 "$raw_bed" | tail -n +2 | awk '{
-    \$2=sprintf("%.0f",\$2);
-    \$3=sprintf("%.0f",\$3);
-    print}' OFS='\t' > "\$out"
-  """
-}
-
-// mask the fasta with bedfile
-process mask_fasta {
-
-  conda 'bioconda::bedtools'
-
-  publishDir params.output_dir, mode: "copy"
-  
-  input: 
-  tuple val(ID), path(bed), path(ref)
-
-  output: path("*.masked.fna")
-
-  script:
-  """
-    bedtools maskfasta -fi ${ref} -bed ${bed} -fo ${ID}.masked.fna
-  """
 }

@@ -1,0 +1,14 @@
+[workspace]
+authors = ["CormacKinsella <27350062+CormacKinsella@users.noreply.github.com>"]
+channels = ["conda-forge", "bioconda"]
+name = "MCWorkflow-pixi"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+test = "nextflow main.nf -profile apptainer,test -params-file test/params.yml"
+
+[dependencies]
+nextflow = ">=26.4.3,<27"
+seqkit = ">=2.13.0,<3"
+nf-core = ">=4.0.2,<5"

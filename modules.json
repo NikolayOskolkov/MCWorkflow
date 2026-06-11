@@ -1,0 +1,18 @@
+{
+  "name": "MCWorkflow",
+  "homePage": "",
+  "repos": {
+    "https://github.com/nf-core/modules.git": {
+      "modules": {
+        "nf-core": {
+          "bowtie2/build": {
+            "branch": "master",
+            "git_sha": "a0961c41021561ac7cf139f86bd7812a2f99e994",
+            "installed_by": ["modules"],
+            "patch": "modules/nf-core/bowtie2/build/bowtie2-build.diff"
+          }
+        }
+      }
+    }
+  }
+}

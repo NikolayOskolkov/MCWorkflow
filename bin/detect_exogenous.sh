@@ -5,7 +5,6 @@
 BAM=$1
 REF_GENOME=$2
 TYPE_OF_PSEUDO_READS=$3
-WORK_DIR=$4
 
 printf "\n"; echo RANKING ${REF_GENOME} CONTIGS BY NUMBER OF MAPPED MICROBIAL READS
 samtools view $BAM | cut -f3 | sort | uniq -c | sort -nr -k1,1 | awk '{ t = $1; $1 = $2; $2 = t; print; }' | tr ' ' '\t' > contigs_abund_sorted_${TYPE_OF_PSEUDO_READS}_${REF_GENOME}.txt
@@ -22,11 +21,6 @@ samtools view -b $BAM ${j} > ${j}.bam
 samtools depth -g 0x100 -a ${j}.bam | cut -f3 > ${j}__${REF_GENOME}.boc
 awk -v covered_length=$(awk '{if($1>0)print$0}' ${j}__${REF_GENOME}.boc | wc -l) -v total_length=$(wc -l ${j}__${REF_GENOME}.boc | cut -f1 -d ' ') 'BEGIN { print ( covered_length / total_length ) }' >> boc_per_ref.txt
 wc -l ${j}__${REF_GENOME}.boc | cut -f1 -d ' ' >> total_length_per_ref.txt
-#echo EXTRACTING COORDINATES OF MICROBIAL CONTAMINATION
-#Rscript $WORK_DIR/bin/extract_coords.R ${TYPE_OF_PSEUDO_READS}
-#echo DELETING BAM AND COMPRESSING BOC FILES
-#rm ${j}.bam
-#gzip ${j}__${REF_GENOME}.boc
 done
 
 printf "\n"; echo AGGREGATING RESULTS FOR ${REF_GENOME} REFERENCE GENOME AND CLEANING
