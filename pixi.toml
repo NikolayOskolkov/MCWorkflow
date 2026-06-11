@@ -11,3 +11,4 @@ test = "nextflow main.nf -profile apptainer,test -params-file test/params.yml"
 [dependencies]
 nextflow = ">=26.4.3,<27"
 seqkit = ">=2.13.0,<3"
+nf-core = ">=4.0.2,<5"

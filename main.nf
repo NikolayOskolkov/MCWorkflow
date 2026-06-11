@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 
 // Imports
-include { INDEX_REFERENCE    } from './modules/local/bowtie2/index/main'
+include { BOWTIE2_BUILD      } from './modules/nf-core/bowtie2/build/main'
 include { ALIGN_PSEUDO_READS } from './modules/local/bowtie2/align/main'
 include { MERGE_BAM          } from './modules/local/merge_bams/main'
 
@@ -42,13 +42,14 @@ workflow {
         channel.fromPath(params.fna2name, checkIfExists: true)
         .set { fna2name }
     }
+
     // Create bowtie2 index for each assembly
-    INDEX_REFERENCE (
+    BOWTIE2_BUILD (
         assemblies_to_mask
     )
 
     // Prepare alignment input channel
-    INDEX_REFERENCE.out
+    BOWTIE2_BUILD.out.index
         .combine( pseudo_reads )
         .map { id, index, reads ->
             [ id, index, reads, params.type_of_pseudo_reads, params.n_allowed_multimappers ]

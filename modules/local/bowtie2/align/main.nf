@@ -1,14 +1,17 @@
 process ALIGN_PSEUDO_READS {
 
+    tag "$meta"
+    label 'process_medium'
+
     container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container ?
         'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/b4/b41b403e81883126c3227fc45840015538e8e2212f13abc9ae84e4b98891d51c/data' :
         'community.wave.seqera.io/library/bowtie2_htslib_samtools_pigz:edeb13799090a2a6' }"
 
     input:
-    tuple val(ID), path(index), path(input_pseudo_reads), val(type_of_pseudo_reads), val(n_allowed_multimappers)
+    tuple val(meta), path(index), path(input_pseudo_reads), val(type_of_pseudo_reads), val(n_allowed_multimappers)
 
     output:
-    tuple val(ID), path("*.bam")
+    tuple val(meta), path("*.bam")
 
     script:
     """
