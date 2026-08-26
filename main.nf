@@ -99,7 +99,7 @@ process align_pseudo_reads {
 
     script:
     """
-	set -uo pipefail
+	set -o pipefail
     index1=\$(printf '%s\n' *.bt2* | head -n1)
     ref_name=\$(echo \$index1 | sed 's/.1.bt2l//' | sed 's/.1.bt2//')
 
